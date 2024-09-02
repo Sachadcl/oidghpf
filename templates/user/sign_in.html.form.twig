@@ -1,0 +1,85 @@
+{% block body %}
+
+	<section class="text-center">
+		<div class="p-5 bg-image" style="
+																											        background-image: url('https://mdbootstrap.com/img/new/textures/full/171.jpg');
+																											        height: 300px;
+																											        "></div>
+
+		<div class="card mx-4 mx-md-5 shadow-5-strong bg-body-tertiary" style="
+																																				        margin-top: -100px;
+																																				        backdrop-filter: blur(30px);
+																																				        ">
+			<div class="card-body py-5 px-md-5">
+
+				<div class="row d-flex justify-content-center">
+					<div class="col-lg-8">
+						<h2 class="fw-bold mb-5">Inscription</h2>
+						<form>
+
+							<div class="form-outline mb-4">
+								<input type="text" id="formPseudo" class="form-control"/>
+								<label class="form-label" for="formPseudo">Pseudo</label>
+							</div>
+
+							<div class="form-outline mb-4">
+								<input type="text" id="formFirstName" class="form-control"/>
+								<label class="form-label" for="formFirstName">Prénom</label>
+							</div>
+
+							<div class="form-outline mb-4">
+								<input type="text" id="formLastName" class="form-control"/>
+								<label class="form-label" for="formLastName">Nom</label>
+							</div>
+
+							<div class="form-outline mb-4">
+								<input type="text" id="formTelephone" class="form-control"/>
+								<label class="form-label" for="formTelephone">Téléphone</label>
+							</div>
+
+							<div class="form-outline mb-4">
+								<input type="email" id="formEmail" class="form-control"/>
+								<label class="form-label" for="formEmail">Email</label>
+							</div>
+
+							<div class="form-outline mb-4">
+								<input type="password" id="formPassword" class="form-control"/>
+								<label class="form-label" for="formPassword">Mot de passe</label>
+							</div>
+
+							<div class="form-outline mb-4">
+								<input type="password" id="formConfirmPassword" class="form-control"/>
+								<label class="form-label" for="formConfirmPassword">Confirmation du mot de passe</label>
+							</div>
+
+							<div class="form-outline mb-4">
+								<select id="formCampus" class="form-control">
+									<option value="" disabled selected>Choisissez votre campus</option>
+									<option value="campus1">Campus 1</option>
+									<option value="campus2">Campus 2</option>
+									<option value="campus3">Campus 3</option>
+								</select>
+								<label class="form-label" for="formCampus">Campus</label>
+							</div>
+
+							<div class="form-outline mb-4">
+								<input type="file" id="formPhoto" class="form-control"/>
+								<label class="form-label" for="formPhoto">Ma photo</label>
+							</div>
+
+							<button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">
+								S'inscrire
+							</button>
+
+							<button type="reset" data-mdb-button-init data-mdb-ripple-init class="btn btn-secondary btn-block mb-4">
+								Annuler
+							</button>
+
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+{% endblock %}
