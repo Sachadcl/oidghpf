@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Outing{% endblock %}
+
+{% block body %}
+    <h1>Outing</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ outing.id }}</td>
+            </tr>
+            <tr>
+                <th>Outing_name</th>
+                <td>{{ outing.outingName }}</td>
+            </tr>
+            <tr>
+                <th>Outing_date</th>
+                <td>{{ outing.outingDate ? outing.outingDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Registration_deadline</th>
+                <td>{{ outing.registrationDeadline ? outing.registrationDeadline|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Slots</th>
+                <td>{{ outing.slots }}</td>
+            </tr>
+            <tr>
+                <th>State</th>
+                <td>{{ outing.state }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_outing_index') }}">back to list</a>
+
+    <a href="{{ path('app_outing_edit', {'id': outing.id}) }}">edit</a>
+
+    {{ include('outing/_delete_form.html.twig') }}
+{% endblock %}
