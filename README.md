@@ -33,8 +33,8 @@ Ensuite, ouvrez une page de votre localhost sur votre navigateur.
 
 ## Technologies
 
-PHP 8.2.0
-Symfony 6.4
-Twig
-Tailwind 3
+PHP 8.2.0, 
+Symfony 6.4, 
+Twig, 
+Tailwind 3, 
 MySQL
