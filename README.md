@@ -35,6 +35,6 @@ Ensuite, ouvrez une page de votre localhost sur votre navigateur.
 
 PHP 8.2.0
 Symfony 6.4
+Twig
 Tailwind 3
-Vue.js
 MySQL
