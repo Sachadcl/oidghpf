@@ -29,10 +29,6 @@ Projet Symfony. Plateforme d'organisation de sorties pour les stagiaires de l'EN
 
 A héberger sur un serveur web (style Wamp)
 
-```bash
-npm start
-```
-
 Ensuite, ouvrez une page de votre localhost sur votre navigateur.
 
 ## Technologies
