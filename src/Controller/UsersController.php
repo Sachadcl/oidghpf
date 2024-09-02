@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\UsersType;
 use App\Repository\UsersRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,10 +12,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/user", name="user_")
- */
-class UserController extends AbstractController
+#[Route('/user', name: 'user_')]
+class UsersController extends AbstractController
 {
     private UsersRepository $userRepository;
 
@@ -23,9 +22,7 @@ class UserController extends AbstractController
         $this->userRepository = $userRepository;
     }
 
-    /**
-     * @Route("/{id]", name="profile")
-     */
+    #[Route('/{id}', name: 'profile')]
     public function profile(int $id): Response
     {
         $user = $this->userRepository->find($id);
@@ -35,9 +32,7 @@ class UserController extends AbstractController
         ));
     }
 
-    /**
-     * @Route("/settings", name="settings")
-     */
+    #[Route('/settings', name: 'settings')]
     public function settings(Request $request, EntityManagerInterface $entityManager, Security $security, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $user = $security->getUser();
