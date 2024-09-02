@@ -17,7 +17,7 @@ Projet Symfony. Plateforme d'organisation de sorties pour les stagiaires de l'EN
 
 2. Accédez au répertoire du projet :
    ```bash
-   cd nom-du-projet
+   cd oidghpf
    ```
 
 3. Installez les dépendances requises :
