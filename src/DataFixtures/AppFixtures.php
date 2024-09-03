@@ -47,6 +47,7 @@ class AppFixtures extends Fixture
         $this->user->setFirstName($this->faker->firstName());
         $this->user->setLastName($this->faker->lastName());
         $this->user->setEmail("aaa@12aaa.com");
+        $this->user->setRoles(["ROLE_USER"]);
         $this->user->setUsername($this->faker->userName());
         $this->user->setTelephone($this->faker->phoneNumber());
         $this->user->setIdCampus($this->campus);
@@ -128,6 +129,7 @@ class AppFixtures extends Fixture
         $user->setEmail($this->faker->email());
         $user->setUsername($this->faker->userName());
         $user->setTelephone($this->faker->phoneNumber());
+        $user->setRoles(["ROLE_USER"]);
         $user->setIdCampus($this->campus);
         $user->setProfilePicture($this->faker->imageUrl());
         $user->setPassword($this->faker->password());
