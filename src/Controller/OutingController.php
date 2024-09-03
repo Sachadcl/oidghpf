@@ -71,7 +71,7 @@ final class OutingController extends AbstractController
     #[Route('/{id}', name: 'app_outing_delete', methods: ['POST'])]
     public function delete(Request $request, Outing $outing, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$outing->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $outing->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($outing);
             $entityManager->flush();
         }
