@@ -6,12 +6,12 @@ controllers:
 
 Campus:
     resource: Controller\CampusController
-    type: annotation
+    type: attribute
 
 Outing:
     resource: Controller\OutingController
-    type: annotation
+    type: attribute
 
 Users:
     resource: Controller\UserController
-    type: annotation
+    type: attribute
