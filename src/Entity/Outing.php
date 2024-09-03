@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\OutingRepository;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -23,13 +24,13 @@ class Outing
     private ?Campus $id_campus = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $outing_date = null;
+    private ?DateTimeInterface $outing_date = null;
 
     #[ORM\ManyToOne(inversedBy: 'outings')]
     private ?City $id_city = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $registration_deadline = null;
+    private ?DateTimeInterface $registration_deadline = null;
 
     #[ORM\Column]
     private ?int $slots = null;
@@ -38,12 +39,12 @@ class Outing
     private ?string $state = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Users $id_organizer = null;
+    private ?User $id_organizer = null;
 
     /**
-     * @var Collection<int, Users>
+     * @var Collection<int, User>
      */
-    #[ORM\ManyToMany(targetEntity: Users::class, inversedBy: 'outings')]
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'outings')]
     private Collection $id_member;
 
     public function __construct()
@@ -87,12 +88,12 @@ class Outing
         return $this;
     }
 
-    public function getOutingDate(): ?\DateTimeInterface
+    public function getOutingDate(): ?DateTimeInterface
     {
         return $this->outing_date;
     }
 
-    public function setOutingDate(\DateTimeInterface $outing_date): static
+    public function setOutingDate(DateTimeInterface $outing_date): static
     {
         $this->outing_date = $outing_date;
 
@@ -111,12 +112,12 @@ class Outing
         return $this;
     }
 
-    public function getRegistrationDeadline(): ?\DateTimeInterface
+    public function getRegistrationDeadline(): ?DateTimeInterface
     {
         return $this->registration_deadline;
     }
 
-    public function setRegistrationDeadline(\DateTimeInterface $registration_deadline): static
+    public function setRegistrationDeadline(DateTimeInterface $registration_deadline): static
     {
         $this->registration_deadline = $registration_deadline;
 
@@ -147,12 +148,12 @@ class Outing
         return $this;
     }
 
-    public function getIdOrganizer(): ?Users
+    public function getIdOrganizer(): ?User
     {
         return $this->id_organizer;
     }
 
-    public function setIdOrganizer(?Users $id_organizer): static
+    public function setIdOrganizer(?User $id_organizer): static
     {
         $this->id_organizer = $id_organizer;
 
@@ -160,14 +161,14 @@ class Outing
     }
 
     /**
-     * @return Collection<int, Users>
+     * @return Collection<int, User>
      */
     public function getIdMember(): Collection
     {
         return $this->id_member;
     }
 
-    public function addIdMember(Users $idMember): static
+    public function addIdMember(User $idMember): static
     {
         if (!$this->id_member->contains($idMember)) {
             $this->id_member->add($idMember);
@@ -176,7 +177,7 @@ class Outing
         return $this;
     }
 
-    public function removeIdMember(Users $idMember): static
+    public function removeIdMember(User $idMember): static
     {
         $this->id_member->removeElement($idMember);
 

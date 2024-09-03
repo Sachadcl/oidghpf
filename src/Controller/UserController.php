@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Form\UsersType;
-use App\Repository\UsersRepository;
+use App\Form\UserType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -13,11 +13,11 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/user', name: 'user_')]
-class UsersController extends AbstractController
+class UserController extends AbstractController
 {
-    private UsersRepository $userRepository;
+    private UserRepository $userRepository;
 
-    public function __construct(UsersRepository $userRepository)
+    public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
     }
@@ -37,7 +37,7 @@ class UsersController extends AbstractController
     {
         $user = $security->getUser();
 
-        $form = $this->createForm(UsersType::class, $user);
+        $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
