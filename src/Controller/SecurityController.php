@@ -24,14 +24,7 @@ class SecurityController extends AbstractController
 
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
-    // #[Route(path: '/aaa', name: 'aaa')]
-    // public function aaa(AuthenticationUtils $authenticationUtils): Response
-    // {
-    //     // if ($this->getUser()) {
-    //     //     return $this->redirectToRoute('target_path');
-    //     // }
 
-    // }
     #[Route(path: '/logout', name: 'app_logout')]
     public function logout(): void
     {
