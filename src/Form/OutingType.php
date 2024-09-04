@@ -5,7 +5,7 @@ namespace App\Form;
 use App\Entity\Campus;
 use App\Entity\City;
 use App\Entity\Outing;
-use App\Entity\Users;
+use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -34,11 +34,11 @@ class OutingType extends AbstractType
                 'choice_label' => 'id',
             ])
             ->add('id_organizer', EntityType::class, [
-                'class' => Users::class,
+                'class' => User::class,
                 'choice_label' => 'id',
             ])
             ->add('id_member', EntityType::class, [
-                'class' => Users::class,
+                'class' => User::class,
                 'choice_label' => 'id',
                 'multiple' => true,
             ])
