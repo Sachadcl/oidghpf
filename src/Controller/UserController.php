@@ -22,12 +22,12 @@ class UserController extends AbstractController
         $this->userRepository = $userRepository;
     }
 
-    #[Route('/fiche/{id}', name: 'profile')]
+    #[Route('/card/{id}', name: 'profile')]
     public function profile(int $id): Response
     {
         $user = $this->userRepository->find($id);
 
-        return $this->render('user/user_fiche.html.twig', array(
+        return $this->render('user/user_card.html.twig', array(
             'user' => $user
         ));
     }
