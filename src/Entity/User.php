@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
@@ -18,32 +19,83 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
+    #[Assert\NotBlank(message: "Votre adresse e-mail ne doit pas être vide.")]
+    #[Assert\Email(message: "Ceci n'est pas une adresse e-mail valide.")]
+    #[Assert\Length(max: 180, maxMessage: "Votre adresse e-mail est trop longue.")]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le nom d'utilisateur ne doit pas être vide.")]
+    #[Assert\Length(
+        min: 3,
+        max: 50,
+        minMessage: "Le nom d'utilisateur doit contenir au moins {{ limit }} caractères.",
+        maxMessage: "Le nom d'utilisateur ne peut pas dépasser {{ limit }} caractères."
+    )]
+    #[Assert\Regex(
+        pattern: "/^[a-zA-Z0-9_]+$/",
+        message: "Le nom d'utilisateur ne peut contenir que des lettres, des chiffres et des underscores."
+    )]
     private ?string $username = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le nom ne doit pas être vide.")]
+    #[Assert\Length(
+        min: 2,
+        max: 100,
+        minMessage: "Le nom doit contenir au moins {{ limit }} caractères.",
+        maxMessage: "Le nom ne peut pas dépasser {{ limit }} caractères."
+    )]
+    #[Assert\Regex(
+        pattern: "/^[a-zA-ZÀ-ÖØ-öø-ÿ]+$/",
+        message: "Le nom ne peut contenir que des lettres."
+    )]
     private ?string $last_name = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le prénom ne doit pas être vide.")]
+    #[Assert\Length(
+        min: 2,
+        max: 100,
+        minMessage: "Le prénom doit contenir au moins {{ limit }} caractères.",
+        maxMessage: "Le prénom ne peut pas dépasser {{ limit }} caractères."
+    )]
+    #[Assert\Regex(
+        pattern: "/^[a-zA-ZÀ-ÖØ-öø-ÿ]+$/",
+        message: "Le prénom ne peut contenir que des lettres."
+    )]
     private ?string $first_name = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le numéro de téléphone ne doit pas être vide.")]
+    #[Assert\Length(
+        min: 10,
+        max: 15,
+        minMessage: "Le numéro de téléphone doit contenir au moins {{ limit }} chiffres.",
+        maxMessage: "Le numéro de téléphone ne peut pas dépasser {{ limit }} chiffres."
+    )]
+    #[Assert\Regex(
+        pattern: "/^\+?[0-9]{10,15}$/",
+        message: "Le numéro de téléphone doit être valide, avec ou sans l'indicatif international."
+    )]
     private ?string $telephone = null;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotNull(message: "Le campus ne peut pas être nul.")]
     private ?Campus $id_campus = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Url(message: "L'URL de l'image de profil doit être valide.")]
+    #[Assert\Length(
+        max: 255,
+        maxMessage: "L'URL de l'image de profil est trop longue."
+    )]
     private ?string $profile_picture = null;
 
-    /**
-     * @var Collection<int, Outing>
-     */
     #[ORM\ManyToMany(targetEntity: Outing::class, mappedBy: 'id_member')]
     private Collection $outings;
+
 
     /**
      * @var list<string> The user roles

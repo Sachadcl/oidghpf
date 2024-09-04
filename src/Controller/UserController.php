@@ -61,7 +61,7 @@ class UserController extends AbstractController
             $this->addFlash('success', 'Votre profil a été mis à jour avec succès.');
             return $this->redirectToRoute('main_home');
         }
-
+        dump($form);
         return $this->render('user/profile_management.html.twig', ['userForm' => $form->createView(),]);
     }
 }

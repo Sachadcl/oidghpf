@@ -14,12 +14,11 @@ use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\EqualTo;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class UserType extends AbstractType
 {
-    private $passwordHasher;
+    private UserPasswordHasherInterface $passwordHasher;
 
     public function __construct(UserPasswordHasherInterface $passwordHasher)
     {
@@ -31,46 +30,18 @@ class UserType extends AbstractType
         $builder
             ->add('username', null, [
                 'label' => 'Pseudonyme :',
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Votre nom d\'utilisateur ne doit pas être vide.',
-                    ]),
-                ],
             ])
             ->add('last_name', null, [
                 'label' => 'Prénom :',
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Votre nom ne doit pas être vide.',
-                    ]),
-                ],
             ])
             ->add('first_name', null, [
                 'label' => 'Nom :',
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Votre prénom ne doit pas être vide.',
-                    ]),
-                ],
             ])
             ->add('email', null, [
                 'label' => 'email :',
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Votre adresse e-mail ne doit pas être vide.',
-                    ]),
-                    new Email([
-                        'message' => 'Votre e-mail n\'est pas valide.',
-                    ]),
-                ],
             ])
             ->add('telephone', null, [
                 'label' => 'Téléphone :',
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Votre numéro de téléphone ne doit pas être vide.',
-                    ]),
-                ],
             ])
             ->add('new_password', PasswordType::class, [
                 'label' => 'Nouveau mot de passe :',
@@ -98,21 +69,11 @@ class UserType extends AbstractType
                 'label' => 'Campus :',
                 'class' => Campus::class,
                 'choice_label' => 'campus_name',
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez sélectionner un campus.',
-                    ]),
-                ],
             ])
             ->add('profile_picture', null, [
                 'label' => 'Changer votre Photo de profil :',
                 'attr' => [
                     'placeholder' => 'https://via.placeholder.com/640x480.png/004455?text=iure',
-                ],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Votre nom ne doit pas être vide.',
-                    ]),
                 ],
             ])
             ->add('current_password', PasswordType::class, [
@@ -131,7 +92,11 @@ class UserType extends AbstractType
     public function validateCurrentPassword($value, ExecutionContextInterface $context): void
     {
         $user = $context->getRoot()->getData();
-        $currentPasswordIsValid = $this->passwordHasher->isPasswordValid($user, $value);
+        $currentPasswordIsValid = True;
+
+        if($value){
+            $currentPasswordIsValid = $this->passwordHasher->isPasswordValid($user, $value);
+        }
 
         if (!$currentPasswordIsValid) {
             $context->buildViolation('Le mot de passe actuel est incorrect.')
@@ -143,6 +108,7 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'required' => false,
         ]);
     }
 }
