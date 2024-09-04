@@ -22,7 +22,7 @@ class AppFixtures extends Fixture
     private User $user;
     private City $city;
 
-    public static $campusList = [
+    public static $CAMPUS_LIST = [
         'ENI Rennes',
         'ENI Nantes',
         'ENI Brest',
@@ -76,7 +76,7 @@ class AppFixtures extends Fixture
         $this->initializeObjects($manager);
 
 
-        foreach (self::$campusList as $campusName) {
+        foreach (self::$CAMPUS_LIST as $campusName) {
             $this->createCampus($manager, $campusName);
         }
 
@@ -128,6 +128,8 @@ class AppFixtures extends Fixture
 
 
         $user = new User();
+        $hashedPassword = $this->passwordHasher->hashPassword($this->user, $this->faker->password());
+
         $user->setFirstName($this->faker->firstName());
         $user->setLastName($this->faker->lastName());
         $user->setEmail($this->faker->email());
@@ -136,7 +138,9 @@ class AppFixtures extends Fixture
         $user->setRoles(["ROLE_USER"]);
         $user->setIdCampus($this->campus);
         $user->setProfilePicture($this->faker->imageUrl());
-        $user->setPassword($this->faker->password());
+
+        $user->setPassword($hashedPassword);
+
         $manager->persist($user);
     }
 }
