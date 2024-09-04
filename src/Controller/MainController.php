@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class MainController extends AbstractController
 {
 
-    #[Route('/', name: 'home')]
+    #[Route('/', name: 'home_controller')]
     public function home(CampusRepository $campusRepository, OutingRepository $outingRepository): Response
     {
         $campuses = $campusRepository->findAll();
