@@ -41,13 +41,16 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $user = $form->getData();
 
-            if ($user->getPlainPassword()) {
+            $plainPassword = $form->get('new_password')->getData();
+            if ($plainPassword) {
+
                 $user->setPassword(
                     $userPasswordHasher->hashPassword(
                         $user,
-                        $form->get('plainPassword')->getData()
+                        $form->get('new_password')->getData()
                     )
                 );
             }
@@ -56,11 +59,9 @@ class UserController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Votre profil a été mis à jour avec succès.');
-            return $this->redirectToRoute('/{id}', ['id' => $user->getId()]);
+            return $this->redirectToRoute('main_home');
         }
 
-        return $this->render('user/settings.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        return $this->render('user/profile_management.html.twig', ['userForm' => $form->createView(),]);
     }
 }
