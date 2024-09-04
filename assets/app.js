@@ -1,3 +1,4 @@
+import { startStimulusApp } from '@symfony/stimulus-bridge';
 
 import './bootstrap.js';
 /*
@@ -9,4 +10,4 @@ import './bootstrap.js';
 import './styles/app.css';
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
-
+

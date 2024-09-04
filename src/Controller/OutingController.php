@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Outing;
+use App\Entity\User;
 use App\Form\OutingType;
 use App\Repository\OutingRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -45,8 +46,13 @@ final class OutingController extends AbstractController
     #[Route('/{id}', name: 'app_outing_show', methods: ['GET'])]
     public function show(Outing $outing): Response
     {
+
+        $members = $outing->getIdMember();
+
+
         return $this->render('outing/show.html.twig', [
             'outing' => $outing,
+            'members' => $members,
         ]);
     }
 
