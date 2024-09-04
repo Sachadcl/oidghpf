@@ -1,7 +1,5 @@
 {% extends 'base.html.twig' %}
-
 {% block body %}
-    <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Accueil</h2>
-
-    <a href={{ path('user_profile', { 'id': 12 }) }}>user info test section</a>
+<h1>Home</h1>
+<a href={{ url("app_login") }}>Connexion</a>
 {% endblock %}
