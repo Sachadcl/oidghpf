@@ -10,11 +10,9 @@ use App\Entity\City;
 use App\Entity\Outing;
 use Faker\Factory;
 use Faker\Generator;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
-    private UserPasswordHasherInterface $passwordHasher;
 
     protected Generator $faker;
 
@@ -31,15 +29,13 @@ class AppFixtures extends Fixture
     ];
 
 
-    function __construct(UserPasswordHasherInterface $passwordHasher)
+    function __construct()
     {
         $this->faker = Factory::create('fr_FR');
-        $this->passwordHasher = $passwordHasher;
     }
 
     private function initializeObjects(ObjectManager $manager): void
     {
-
         $this->campus = new Campus();
         $this->user = new User();
         $this->city = new City();
@@ -56,7 +52,7 @@ class AppFixtures extends Fixture
         $this->user->setTelephone($this->faker->phoneNumber());
         $this->user->setIdCampus($this->campus);
         $this->user->setProfilePicture($this->faker->imageUrl());
-        $this->user->setPassword($this->passwordHasher->hashPassword($this->user, "aaa"));
+        $this->user->setPassword("aaa");
 
 
         $this->city->setcityName($this->faker->city());
