@@ -69,7 +69,7 @@ class MainController extends AbstractController
         } else if (isset($data['notSignedIn']) && $data['notSignedIn'] == 'true') {
             $user = $security->getUser();
 
-            $members = $outingRepository->find($outings->getIdMember());
+            // $members = $outingRepository->find($outings->getIdMember());
 
             $html = $this->renderView('outing/_list.html.twig', [
                 'outings' => $outingRepository->findAll(),
