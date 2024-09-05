@@ -16,6 +16,80 @@ class OutingRepository extends ServiceEntityRepository
         parent::__construct($registry, Outing::class);
     }
 
+    public function search(?string $name, ?\DateTimeInterface $beginDate, ?\DateTimeInterface $endDate, ?Int $campusId): array
+    {
+        $qb = $this->createQueryBuilder('o');
+
+        if ($name) {
+            $qb->andWhere('LOWER(o.outing_name) LIKE :name')
+                ->setParameter('name', '%' . strtolower($name) . '%');
+        }
+
+        if ($beginDate) {
+            $qb->andWhere('o.outing_date >= :beginDate')
+                ->setParameter('beginDate', $beginDate->format('Y-m-d'));
+        }
+
+        if ($endDate) {
+            $qb->andWhere('o.outing_date <= :endDate')
+                ->setParameter('endDate', $endDate->format('Y-m-d'));
+        }
+
+        if ($campusId) {
+            $qb->andWhere('o.id_campus_id = :campusId')
+                ->setParameter('campusId', $campusId);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function outingWhereIAmOrganizer(int $outingId, int $userId): array
+    {
+        $qb = $this->createQueryBuilder('o');
+
+        $qb->select('o')
+            ->andWhere('o.id = :outingId')
+            ->andWhere('o.id_organizer = :userId')
+            ->setParameter('outingId', $outingId)
+            ->setParameter('userId', $userId);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findRegisteredUsersForOuting(Outing $outing): array
+    {
+        return $this->createQueryBuilder('o')
+            ->select('u')
+            ->join('o.id_member', 'u')
+            ->where('o.id = :outingId')
+            ->setParameter('outingId', $outing->getId())
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findOutingsWithRegisteredUsers(): array
+    {
+        return $this->createQueryBuilder('o')
+            ->select('o', 'u')
+            ->leftJoin('o.id_member', 'u')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function finishedOutings(): array
+    {
+        $qb = $this->createQueryBuilder('o');
+
+        $qb->select('o')
+            ->andWhere('o.outing_date > :now')
+            ->setParameter('now', new \DateTime());
+
+        return $qb->getQuery()->getResult();
+    }
+
+
+
+
     //    /**
     //     * @return Outing[] Returns an array of Outing objects
     //     */

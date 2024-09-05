@@ -37,6 +37,21 @@ class AppFixtures extends Fixture
         $this->passwordHasher = $passwordHasher;
     }
 
+    public function calculateOutingState(Outing $outing): string
+    {
+        $now = new \DateTime();
+        $outingDate = $outing->getOutingDate();
+        $registrationDeadline = $outing->getRegistrationDeadline();
+
+        if ($now > $outingDate) {
+            return "PASSEE";
+        } elseif ($now > $registrationDeadline) {
+            return "CLOTUREE";
+        } else {
+            return "EN COURS";
+        }
+    }
+
     private function initializeObjects(ObjectManager $manager): void
     {
 
@@ -112,16 +127,20 @@ class AppFixtures extends Fixture
     public function createOutings(ObjectManager $manager): void
     {
         $outing = new Outing();
+        $signedUser = $this->user;
         $outing->setIdCampus($this->campus);
-        $outing->setState("EN COURS");
+        $outing->setState($this->calculateOutingState($outing));
         $outing->setIdCity($this->city);
         $outing->setOutingName($this->faker->company());
-        $outing->setOutingDate($this->faker->dateTime('now'));
-        $outing->setRegistrationDeadline($this->faker->dateTime("tomorrow"));
+        $outing->setOutingDate($this->faker->dateTime());
+        $outing->setRegistrationDeadline($this->faker->dateTime());
         $outing->setSlots($this->faker->numberBetween(1, 50));
+        $outing->addIdMember($signedUser);
         $manager->persist($outing);
         $manager->flush();
     }
+
+
 
     public function createUsers(ObjectManager $manager): void
     {

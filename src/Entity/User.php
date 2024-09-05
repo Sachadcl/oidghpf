@@ -95,9 +95,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     )]
     private ?string $profile_picture = null;
 
-    #[ORM\ManyToMany(targetEntity: Outing::class, mappedBy: 'id_member')]
+    /**
+     * @var Collection<int, Outing>
+     */
+    #[ORM\OneToMany(targetEntity: Outing::class, mappedBy: 'id_member')]
     private Collection $outings;
-
 
     /**
      * @var list<string> The user roles

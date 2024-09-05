@@ -38,8 +38,8 @@ class Outing
     #[ORM\Column(length: 255)]
     private ?string $state = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?User $id_organizer = null;
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'outings')]
+    private ?User  $id_organizer = null;
 
     /**
      * @var Collection<int, User>
@@ -74,6 +74,11 @@ class Outing
         $this->outing_name = $outing_name;
 
         return $this;
+    }
+
+    public function isUserRegistered(User $user): bool
+    {
+        return $this->id_member->contains($user);
     }
 
     public function getIdCampus(): ?Campus

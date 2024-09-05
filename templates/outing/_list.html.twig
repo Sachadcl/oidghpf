@@ -1,0 +1,48 @@
+{% for outing in outings %}
+
+	<tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
+		<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+			{{ outing.outingName }}
+
+		</th>
+		<td class="px-6 py-4">
+			{{ outing.outingDate ? outing.outingDate|date('Y-m-d H:i:s') : '' }}
+
+		</td>
+		<td class="px-6 py-4">
+			{{ outing.registrationDeadline ? outing.registrationDeadline|date('Y-m-d H:i:s') : '' }}
+
+		</td>
+		<td class="px-6 py-4">
+			{{ outing.slots }}
+
+		</td>
+
+		<td class="px-6 py-4">
+			{{ outing.state }}
+
+		</td>
+		<td class="px-6 py-4">
+			x
+		</td>
+		<td class="px-6 py-4">
+			A FAIRE
+		</td>
+		<td class="px-6 py-4 text-right">
+			<a href="{{ path('app_outing_edit', {'id': outing.id}) }}" class="font-medium text-primary-600 dark:text-primary-500 hover:underline">Edit</a>
+			<a href="{{ path('app_outing_show', {'id': outing.id}) }}" class="font-medium text-primary-600 dark:text-primary-500 hover:underline">Afficher</a>
+
+
+			<span>
+				-
+			</span>
+			<button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="font-medium text-primary-600 dark:text-primary-500 hover:underline" type="button">
+				Annuler
+			</button>
+		</td>
+	</tr>
+{% else %}
+	<tr>
+		<td colspan="7">no records found</td>
+	</tr>
+{% endfor %}
