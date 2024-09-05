@@ -29,22 +29,22 @@ class UserType extends AbstractType
     {
         $builder
             ->add('username', null, [
-                'label' => 'Pseudonyme :',
+                'label' => 'Pseudo',
             ])
             ->add('last_name', null, [
-                'label' => 'Prénom :',
+                'label' => 'Prénom',
             ])
             ->add('first_name', null, [
-                'label' => 'Nom :',
+                'label' => 'Nom',
             ])
             ->add('email', null, [
-                'label' => 'email :',
+                'label' => 'Email',
             ])
             ->add('telephone', null, [
-                'label' => 'Téléphone :',
+                'label' => 'Téléphone',
             ])
             ->add('new_password', PasswordType::class, [
-                'label' => 'Nouveau mot de passe :',
+                'label' => 'Nouveau mot de passe',
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [
@@ -55,7 +55,7 @@ class UserType extends AbstractType
                 ],
             ])
             ->add('new_confirmation', PasswordType::class, [
-                'label' => 'Confirmation nouveau mot de passe :',
+                'label' => 'Confirmation nouveau mot de passe',
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [
@@ -66,18 +66,18 @@ class UserType extends AbstractType
                 ],
             ])
             ->add('id_campus', EntityType::class, [
-                'label' => 'Campus :',
+                'label' => 'Campus',
                 'class' => Campus::class,
                 'choice_label' => 'campus_name',
             ])
             ->add('profile_picture', null, [
-                'label' => 'Changer votre Photo de profil :',
+                'label' => 'Photo de profil',
                 'attr' => [
                     'placeholder' => 'https://via.placeholder.com/640x480.png/004455?text=iure',
                 ],
             ])
             ->add('current_password', PasswordType::class, [
-                'label' => 'Mot de passe actuel :',
+                'label' => 'Mot de passe actuel',
                 'mapped' => false,
                 'constraints' => [
                     new NotBlank([

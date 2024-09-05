@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}ENI Sorties - Connexion{% endblock %}
+
 {% block body %}
 
     <section class="bg-gray-50 dark:bg-gray-900">
@@ -45,7 +47,7 @@
                                         moi</label>
                                 </div>
                             </div>
-                            <a href="#"
+                            <a href="{{ path('user_forgot_password') }}"
                                class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Mot de
                                 passe oublié ?</a>
                         </div>
