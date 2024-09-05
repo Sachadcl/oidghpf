@@ -1,43 +1,39 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Outing index{% endblock %}
-
 {% block body %}
-    <h1>Outing index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Outing_name</th>
-                <th>Outing_date</th>
-                <th>Registration_deadline</th>
-                <th>Slots</th>
-                <th>State</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for outing in outings %}
-            <tr>
-                <td>{{ outing.id }}</td>
-                <td>{{ outing.outingName }}</td>
-                <td>{{ outing.outingDate ? outing.outingDate|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ outing.registrationDeadline ? outing.registrationDeadline|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ outing.slots }}</td>
-                <td>{{ outing.state }}</td>
-                <td>
-                    <a href="{{ path('app_outing_show', {'id': outing.id}) }}">show</a>
-                    <a href="{{ path('app_outing_edit', {'id': outing.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-    <a href="{{ path('app_outing_new') }}">Create new</a>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Outing_name</th>
+				<th>Outing_date</th>
+				<th>Registration_deadline</th>
+				<th>Slots</th>
+				<th>State</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for outing in outings %}
+				<tr>
+					<td>{{ outing.id }}</td>
+					<td>{{ outing.outingName }}</td>
+					<td>{{ outing.outingDate ? outing.outingDate|date('Y-m-d H:i:s') : '' }}</td>
+					<td>{{ outing.registrationDeadline ? outing.registrationDeadline|date('Y-m-d H:i:s') : '' }}</td>
+					<td>{{ outing.slots }}</td>
+					<td>{{ outing.state }}</td>
+					<td>
+						<a href="{{ path('app_outing_show', {'id': outing.id}) }}">show</a>
+						<a href="{{ path('app_outing_edit', {'id': outing.id}) }}">edit</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="7">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_outing_new') }}">Create new</a>
 {% endblock %}

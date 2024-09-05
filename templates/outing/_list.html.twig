@@ -1,0 +1,18 @@
+{% for outing in outings %}
+	<tr>
+		<td>{{ outing.id }}</td>
+		<td>{{ outing.outingName }}</td>
+		<td>{{ outing.outingDate ? outing.outingDate|date('Y-m-d H:i:s') : '' }}</td>
+		<td>{{ outing.registrationDeadline ? outing.registrationDeadline|date('Y-m-d H:i:s') : '' }}</td>
+		<td>{{ outing.slots }}</td>
+		<td>{{ outing.state }}</td>
+		<td>
+			<a href="{{ path('app_outing_show', {'id': outing.id}) }}">show</a>
+			<a href="{{ path('app_outing_edit', {'id': outing.id}) }}">edit</a>
+		</td>
+	</tr>
+{% else %}
+	<tr>
+		<td colspan="7">no records found</td>
+	</tr>
+{% endfor %}

@@ -42,7 +42,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Outing>
      */
-    #[ORM\ManyToMany(targetEntity: Outing::class, mappedBy: 'id_member')]
+    #[ORM\OneToMany(targetEntity: Outing::class, mappedBy: 'id_member')]
     private Collection $outings;
 
     /**
