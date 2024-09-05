@@ -36,7 +36,7 @@ class OutingRepository extends ServiceEntityRepository
         }
 
         if ($campusId) {
-            $qb->andWhere('o.id_campus_id = :campusId')
+            $qb->andWhere('o.id_campus = :campusId')
                 ->setParameter('campusId', $campusId);
         }
 
