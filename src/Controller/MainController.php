@@ -28,8 +28,8 @@ class MainController extends AbstractController
     public function search(Request $request, OutingRepository $outingRepository, CampusRepository $campusRepository): Response
     {
         $name = $request->query->get('name');
-        $beginDate = $request->query->get('beginDate');
-        $endDate = $request->query->get('endDate');
+        $beginDate = $request->query->get('start');
+        $endDate = $request->query->get('end');
         $campusId = $request->query->get('campusId');
 
         $beginDate = $beginDate ? new \DateTime($beginDate) : null;
