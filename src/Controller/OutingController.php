@@ -7,6 +7,7 @@ use App\Form\OutingType;
 use App\Repository\OutingRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -51,10 +52,14 @@ final class OutingController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_outing_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Outing $outing, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Outing $outing, EntityManagerInterface $entityManager, Security $security): Response
     {
         $form = $this->createForm(OutingType::class, $outing);
         $form->handleRequest($request);
+
+        if ($outing->getIdOrganizer()->getId() != $security->getUser()->getId()) {
+            return $this->redirectToRoute('main_home');
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
@@ -69,8 +74,12 @@ final class OutingController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_outing_delete', methods: ['POST'])]
-    public function delete(Request $request, Outing $outing, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Outing $outing, EntityManagerInterface $entityManager, Security $security): Response
     {
+        if ($outing->getIdOrganizer()->getId() != $security->getUser()->getId()) {
+            return $this->redirectToRoute('main_home');
+        }
+
         if ($this->isCsrfTokenValid('delete' . $outing->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($outing);
             $entityManager->flush();
