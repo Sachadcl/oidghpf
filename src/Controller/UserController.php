@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -16,10 +17,12 @@ use Symfony\Component\Routing\Attribute\Route;
 class UserController extends AbstractController
 {
     private UserRepository $userRepository;
+    private FileUploader $fileUploader;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepository $userRepository, FileUploader $fileUploader)
     {
         $this->userRepository = $userRepository;
+        $this->fileUploader = $fileUploader;
     }
 
     #[Route('/card/{id}', name: 'profile')]
@@ -33,26 +36,35 @@ class UserController extends AbstractController
     }
 
     #[Route('/settings', name: 'settings')]
-    public function settings(Request $request, EntityManagerInterface $entityManager, Security $security, UserPasswordHasherInterface $userPasswordHasher): Response
-    {
+    public function settings(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        Security $security,
+        UserPasswordHasherInterface $userPasswordHasher
+    ): Response {
+
         $user = $security->getUser();
 
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $user = $form->getData();
 
             $plainPassword = $form->get('new_password')->getData();
             if ($plainPassword) {
-
                 $user->setPassword(
                     $userPasswordHasher->hashPassword(
                         $user,
-                        $form->get('new_password')->getData()
+                        $plainPassword
                     )
                 );
+            }
+
+            $file = $form->get('profile_picture')->getData();
+            if ($file) {
+                $newFileName = $this->fileUploader->upload($file);
+                $user->setProfilePicture($newFileName);
             }
 
             $entityManager->persist($user);
@@ -62,6 +74,6 @@ class UserController extends AbstractController
             return $this->redirectToRoute('main_home');
         }
 
-        return $this->render('user/profile_management.html.twig', ['userForm' => $form->createView(),]);
+        return $this->render('user/profile_management.html.twig', ['userForm' => $form->createView()]);
     }
 }
