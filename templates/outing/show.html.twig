@@ -1,42 +1,51 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Outing{% endblock %}
+{% block title %}Détails de la sortie{% endblock %}
 
 {% block body %}
-    <h1>Outing</h1>
+    <section class="bg-white dark:bg-gray-900">
+        <div class="max-w-2xl px-4 py-8 mx-auto lg:py-16">
+            <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Détails de la sortie</h2>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ outing.id }}</td>
-            </tr>
-            <tr>
-                <th>Outing_name</th>
-                <td>{{ outing.outingName }}</td>
-            </tr>
-            <tr>
-                <th>Outing_date</th>
-                <td>{{ outing.outingDate ? outing.outingDate|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Registration_deadline</th>
-                <td>{{ outing.registrationDeadline ? outing.registrationDeadline|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Slots</th>
-                <td>{{ outing.slots }}</td>
-            </tr>
-            <tr>
-                <th>State</th>
-                <td>{{ outing.state }}</td>
-            </tr>
-        </tbody>
-    </table>
+            <div class="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
+                <div class="w-full">
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ID</label>
+                    <input type="text" value="{{ outing.id }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" readonly>
+                </div>
+                <div class="w-full">
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom de la sortie</label>
+                    <input type="text" value="{{ outing.outingName }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" readonly>
+                </div>
+                <div class="w-full">
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date de la sortie</label>
+                    <input type="text" value="{{ outing.outingDate ? outing.outingDate|date('Y-m-d H:i:s') : '' }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" readonly>
+                </div>
+                <div class="w-full">
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date limite d'inscription</label>
+                    <input type="text" value="{{ outing.registrationDeadline ? outing.registrationDeadline|date('Y-m-d H:i:s') : '' }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" readonly>
+                </div>
+                <div class="w-full">
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre de places</label>
+                    <input type="text" value="{{ outing.slots }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" readonly>
+                </div>
+                <div class="w-full">
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">État</label>
+                    <input type="text" value="{{ outing.state }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" readonly>
+                </div>
+            </div>
 
-    <a href="{{ path('app_outing_index') }}">back to list</a>
+            <div class="flex items-center space-x-4">
+                <a href="{{ path('main_home') }}" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                    Retour à la liste
+                </a>
+                <a href="{{ path('app_outing_edit', {'id': outing.id}) }}"  class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                    Modifier
+                </a>
+                <a class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                    {{ include('outing/_delete_form.html.twig') }}
+                </a>
 
-    <a href="{{ path('app_outing_edit', {'id': outing.id}) }}">edit</a>
-
-    {{ include('outing/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </section>
 {% endblock %}

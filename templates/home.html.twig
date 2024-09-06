@@ -61,21 +61,25 @@
 						</div>
 						<div class="flex flex-wrap items-center justify-start p-4 space-x-4">
 							<label class="flex items-center">
-								<input id="default-checkbox" type="checkbox" value="" class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 rounded focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+								<input id="default-checkbox" type="checkbox" name="isOrganizer" value="true" class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 rounded focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
 								<label for="default-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sorties dont je suis l'organisateur</label>
 							</label>
 							<label class="flex items-center">
-								<input id="default-checkbox1" type="checkbox" value="" class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 rounded focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-								<label for="default-checkbox1" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sorties auxquelles je suis inscrit</label>
+								<input type="checkbox" id="participantCheckbox" name="isParticipant" class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 rounded focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+								<label for="participantCheckbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sorties auxquelles je suis inscrit</label>
 							</label>
 							<label class="flex items-center">
-								<input id="default-checkbox2" type="checkbox" value="" class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 rounded focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-								<label for="default-checkbox2" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sorties auxquelles je ne suis pas inscrit</label>
+								<input type="checkbox" id="notParticipantCheckbox" name="notParticipant" class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 rounded focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+								<label for="notParticipantCheckbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sorties auxquelles je ne suis pas inscrit</label>
 							</label>
 							<label class="flex items-center">
-								<input id="default-checkbox3" type="checkbox" value="" class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 rounded focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+								<input id="default-checkbox3" type="checkbox" name="finishedOutings" class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 rounded focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+
 								<label for="default-checkbox3" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sorties passées</label>
 							</label>
+							<a href="{{ path('app_outing_new') }}" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+								Créer une sortie
+							</a>
 						</div>
 					</form>
 				</div>
@@ -172,6 +176,35 @@
 				</div>
 			</div>
 		</section>
+
+		 <script>
+						document.addEventListener("DOMContentLoaded", function () {
+				  const participantCheckbox = document.getElementById("participantCheckbox");
+				  const notParticipantCheckbox = document.getElementById(
+				    "notParticipantCheckbox"
+				  );
+
+				  if (participantCheckbox && notParticipantCheckbox) {
+				    participantCheckbox.addEventListener("change", function () {
+				      if (participantCheckbox.checked) {
+				        notParticipantCheckbox.disabled = true;
+				      } else {
+				        notParticipantCheckbox.disabled = false;
+				      }
+				    });
+				  }
+
+				  if (notParticipantCheckbox && participantCheckbox) {
+				    notParticipantCheckbox.addEventListener("change", function () {
+				      if (notParticipantCheckbox.checked) {
+				        participantCheckbox.disabled = true;
+				      } else {
+				        participantCheckbox.disabled = false;
+				      }
+				    });
+				  }
+				});
+					</script>
 	{% else %}
 		<h3>Bonjour stagiaires & ex-stagiaires !</h3>
 		<p>Rapprochez vous d'un administrateur pour toute demande d'inscription ! </p>
