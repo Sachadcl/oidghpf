@@ -42,7 +42,7 @@
 								</div>
 							</div>
 							<div class="relative w-40">
-								<select id="countries" name="campusId" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+								<select id="countries" name="selectedCampus" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
 
 									{% for campus in campuses %}
 										<option value={{ campus.id }}>{{ campus.campusName }}</option>
@@ -61,19 +61,23 @@
 						</div>
 						<div class="flex flex-wrap items-center justify-start p-4 space-x-4">
 							<label class="flex items-center">
-								<input id="default-checkbox" type="checkbox" value="" class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 rounded focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+								<input id="default-checkbox" type="checkbox" name="isOrganizer" value="true" class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 rounded focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
 								<label for="default-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sorties dont je suis l'organisateur</label>
 							</label>
 							<label class="flex items-center">
-								<input id="default-checkbox1" type="checkbox" value="" class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 rounded focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+								<input type="checkbox" id="participantCheckbox" name="isParticipant" class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 rounded focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+
+
 								<label for="default-checkbox1" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sorties auxquelles je suis inscrit</label>
 							</label>
 							<label class="flex items-center">
-								<input id="default-checkbox2" type="checkbox" value="" class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 rounded focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+								<input type="checkbox" id="notParticipantCheckbox" name="notParticipant" class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 rounded focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+
 								<label for="default-checkbox2" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sorties auxquelles je ne suis pas inscrit</label>
 							</label>
 							<label class="flex items-center">
-								<input id="default-checkbox3" type="checkbox" value="" class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 rounded focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+								<input id="default-checkbox3" type="checkbox" name="finishedOutings" class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 rounded focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+
 								<label for="default-checkbox3" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sorties passées</label>
 							</label>
 						</div>
@@ -173,7 +177,34 @@
 			</div>
 		</section>
 
-
+		 <script>
+				document.addEventListener("DOMContentLoaded", function () {
+		  const participantCheckbox = document.getElementById("participantCheckbox");
+		  const notParticipantCheckbox = document.getElementById(
+		    "notParticipantCheckbox"
+		  );
+		
+		  if (participantCheckbox && notParticipantCheckbox) {
+		    participantCheckbox.addEventListener("change", function () {
+		      if (participantCheckbox.checked) {
+		        notParticipantCheckbox.disabled = true;
+		      } else {
+		        notParticipantCheckbox.disabled = false;
+		      }
+		    });
+		  }
+		
+		  if (notParticipantCheckbox && participantCheckbox) {
+		    notParticipantCheckbox.addEventListener("change", function () {
+		      if (notParticipantCheckbox.checked) {
+		        participantCheckbox.disabled = true;
+		      } else {
+		        participantCheckbox.disabled = false;
+		      }
+		    });
+		  }
+		});
+			</script>
 	{% else %}
 		<h3>Bonjour visiteur</h3>
 	{% endif %}
