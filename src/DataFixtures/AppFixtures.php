@@ -8,8 +8,10 @@ use App\Entity\Campus;
 use App\Entity\User;
 use App\Entity\City;
 use App\Entity\Outing;
+use App\Service\OutingService;
 use Faker\Factory;
 use Faker\Generator;
+use App\Utils\Roles;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
@@ -18,6 +20,7 @@ class AppFixtures extends Fixture
 
     protected Generator $faker;
 
+    private OutingService $outingService;
     private Campus $campus;
     private User $user;
     private City $city;
@@ -31,26 +34,14 @@ class AppFixtures extends Fixture
     ];
 
 
-    function __construct(UserPasswordHasherInterface $passwordHasher)
+    function __construct(UserPasswordHasherInterface $passwordHasher, OutingService $outingService)
     {
         $this->faker = Factory::create('fr_FR');
         $this->passwordHasher = $passwordHasher;
+        $this->outingService = $outingService;
     }
 
-    public function calculateOutingState(Outing $outing): string
-    {
-        $now = new \DateTime();
-        $outingDate = $outing->getOutingDate();
-        $registrationDeadline = $outing->getRegistrationDeadline();
 
-        if ($now > $outingDate) {
-            return "PASSEE";
-        } elseif ($now > $registrationDeadline) {
-            return "CLOTUREE";
-        } else {
-            return "EN COURS";
-        }
-    }
 
     private function initializeObjects(ObjectManager $manager): void
     {
@@ -66,7 +57,7 @@ class AppFixtures extends Fixture
         $this->user->setFirstName($this->faker->firstName());
         $this->user->setLastName($this->faker->lastName());
         $this->user->setEmail("aaa@12aaa.com");
-        $this->user->setRoles(["ROLE_USER"]);
+        $this->user->setRoles([Roles::USER->value]);
         $this->user->setUsername($this->faker->userName());
         $this->user->setTelephone($this->faker->phoneNumber());
         $this->user->setIdCampus($this->campus);
@@ -129,11 +120,13 @@ class AppFixtures extends Fixture
         $outing = new Outing();
         $signedUser = $this->user;
         $outing->setIdCampus($this->campus);
-        $outing->setState($this->calculateOutingState($outing));
+        $outing->setOutingDate($this->faker->dateTimeBetween('2024-01-01', '2024-12-31'));
+        $outing->setRegistrationDeadline($this->faker->dateTimeBetween('2023-01-01', '2024-12-31'));
+        $outing->setState($this->outingService->calculateOutingState($outing));
         $outing->setIdCity($this->city);
         $outing->setOutingName($this->faker->company());
-        $outing->setOutingDate($this->faker->dateTime());
-        $outing->setRegistrationDeadline($this->faker->dateTime());
+
+
         $outing->setSlots($this->faker->numberBetween(1, 50));
         $outing->addIdMember($signedUser);
         $manager->persist($outing);

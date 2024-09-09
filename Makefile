@@ -1,7 +1,7 @@
 server:
 	symfony server:start --no-tls
 	
-npm:
+client:
 	npm run dev-server
 
 fixtures:
