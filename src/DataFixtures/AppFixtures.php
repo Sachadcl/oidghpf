@@ -72,6 +72,7 @@ class AppFixtures extends Fixture
         $this->user->setIdCampus($this->campus);
         $this->user->setProfilePicture($this->faker->imageUrl());
         $this->user->setPassword($this->passwordHasher->hashPassword($this->user, "aaa"));
+        $this->user->setIsActive(true);
 
 
         $this->city->setcityName($this->faker->city());
@@ -159,6 +160,7 @@ class AppFixtures extends Fixture
         $user->setProfilePicture($this->faker->imageUrl());
 
         $user->setPassword($hashedPassword);
+        $user->setIsActive(true);
 
         $manager->persist($user);
     }

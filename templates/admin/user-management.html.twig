@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ENI Sorties - Accueil{% endblock %}
+
+{% block body %}
+    <a href="{{ path('admin_add') }}"
+       class="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white"
+       aria-current="page">Ajouter un utilisateur</a>
+
+    <section class="bg-gray-50 dark:bg-gray-900 flex justify-center">
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg w-full max-w-6xl">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        Pseudo
+                    </th>
+
+                    <th scope="col" class="px-6 py-3">
+                        Prénom
+                    </th>
+
+                    <th scope="col" class="px-6 py-3">
+                        Nom
+                    </th>
+
+                    <th scope="col" class="px-6 py-3">
+                        Email
+                    </th>
+
+                    <th scope="col" class="px-6 py-3">
+                        Téléphone
+
+
+                    <th scope="col" class="px-6 py-3">
+                        Rôle
+                    </th>
+
+                    <th scope="col" class="px-6 py-3">
+                        Actif
+                    </th>
+
+                    <th scope="col" class="px-6 py-3">
+                        Actions
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {% include 'admin/users-list.html.twig' with {'users': users} %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+{% endblock %}

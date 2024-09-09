@@ -113,6 +113,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+    /**
+     * @var boolean Indicates whether the user is active or not
+     */
+    #[ORM\Column]
+    private ?bool $isActive = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -247,6 +253,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setOutings(Collection $outings): void
     {
         $this->outings = $outings;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(?bool $isActive): void
+    {
+        $this->isActive = $isActive;
     }
 
     /**

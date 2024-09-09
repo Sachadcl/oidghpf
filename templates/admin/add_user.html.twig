@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ENI Sorties - Ajout utilisateur{% endblock %}
+
+{% block body %}
+	<section class="bg-white dark:bg-gray-900">
+		<div class="max-w-2xl px-4 py-8 mx-auto lg:py-16">
+			<h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Ajouter un utilisateur à la plateforme</h2>
+			{{ form_start(userForm, {'attr': {'class': 'grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5'}}) }}
+			<div class="w-full">
+				{{ form_label(userForm.username, 'Pseudo', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+				<div class="block mb-2 text-sm font-medium text-red-600 dark:text-red-500">
+					{{ form_errors(userForm.username) }}
+				</div>
+				{{ form_widget(userForm.username, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500', 'placeholder': 'Pseudo'}}) }}
+			</div>
+			<div class="w-full">
+				{{ form_label(userForm.last_name, 'Prénom', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+				<div class="block mb-2 text-sm font-medium text-red-600 dark:text-red-500">
+					{{ form_errors(userForm.last_name) }}
+				</div>
+				{{ form_widget(userForm.last_name, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500', 'placeholder': 'Prénom'}}) }}
+			</div>
+			<div class="w-full">
+				{{ form_label(userForm.first_name, 'Nom', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+				<div class="block mb-2 text-sm font-medium text-red-600 dark:text-red-500">
+					{{ form_errors(userForm.first_name) }}
+				</div>
+				{{ form_widget(userForm.first_name, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500', 'placeholder': 'Nom'}}) }}
+			</div>
+			<div class="w-full">
+				{{ form_label(userForm.email, 'Email', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+				<div class="block mb-2 text-sm font-medium text-red-600 dark:text-red-500">
+					{{ form_errors(userForm.email) }}
+				</div>
+				{{ form_widget(userForm.email, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500', 'placeholder': 'Email'}}) }}
+			</div>
+			<div class="w-full">
+				{{ form_label(userForm.password, 'Mot de passe', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+				<div class="block mb-2 text-sm font-medium text-red-600 dark:text-red-500">
+					{{ form_errors(userForm.password) }}
+				</div>
+				{{ form_widget(userForm.password, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'}}) }}
+			</div>
+			<div class="w-full">
+				{{ form_label(userForm.confirmation, 'Confirmation du mot de passe', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+				<div class="block mb-2 text-sm font-medium text-red-600 dark:text-red-500">
+					{{ form_errors(userForm.confirmation) }}
+				</div>
+				{{ form_widget(userForm.confirmation, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'}}) }}
+			</div>
+			<div class="w-full">
+				{{ form_label(userForm.telephone, 'Téléphone', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+				<div class="relative">
+					<div class="absolute inset-y-0 start-0 top-0 flex items-center ps-3.5 pointer-events-none">
+						<svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewbox="0 0 19 18">
+							<path d="M18 13.446a3.02 3.02 0 0 0-.946-1.985l-1.4-1.4a3.054 3.054 0 0 0-4.218 0l-.7.7a.983.983 0 0 1-1.39 0l-2.1-2.1a.983.983 0 0 1 0-1.389l.7-.7a2.98 2.98 0 0 0 0-4.217l-1.4-1.4a2.824 2.824 0 0 0-4.218 0c-3.619 3.619-3 8.229 1.752 12.979C6.785 16.639 9.45 18 11.912 18a7.175 7.175 0 0 0 5.139-2.325A2.9 2.9 0 0 0 18 13.446Z"></path>
+						</svg>
+					</div>
+					<div class="block mb-2 text-sm font-medium text-red-600 dark:text-red-500">
+						{{ form_errors(userForm.telephone) }}
+					</div>
+					{{ form_widget(userForm.telephone, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', 'placeholder': '06 06 06 06 06'}}) }}
+				</div>
+			</div>
+			<div class="w-full">
+				{{ form_label(userForm.id_campus, 'Campus', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+				<div class="block mb-2 text-sm font-medium text-red-600 dark:text-red-500">
+					{{ form_errors(userForm.id_campus) }}
+				</div>
+				{{ form_widget(userForm.id_campus, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'}}) }}
+			</div>
+
+			<div class="flex items-center space-x-4 sm:col-span-2">
+				<button type="submit" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+					Ajouter
+				</button>
+			</div>
+			{{ form_end(userForm) }}
+		</div>
+	</section>
+{% endblock %}

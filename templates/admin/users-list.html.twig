@@ -1,0 +1,62 @@
+{% for user in users %}
+
+    <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
+        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            {{ user.username }}
+        </th>
+
+        <td class="px-6 py-4">
+            {{ user.firstName }}
+        </td>
+
+        <td class="px-6 py-4">
+            {{ user.lastName }}
+        </td>
+
+        <td class="px-6 py-4">
+            {{ user.email }}
+        </td>
+
+        <td class="px-6 py-4">
+            {{ user.telephone }}
+        </td>
+
+        <td class="px-6 py-4">
+            {% for role in user.roles %}
+                {{ role }}
+            {% endfor %}
+        </td>
+
+        <td class="px-6 py-4">
+            {% if user.isActive %}
+                Activé
+            {% else %}
+                Désactivé
+            {% endif %}
+        </td>
+
+        <td class="px-6 py-4">
+            <a href="{{ path('user_profile', {'id': user.id}) }}"
+               class="font-medium text-primary-600 dark:text-primary-500 hover:underline">Profil</a>
+
+            {% if "ROLE_ADMIN" not in user.roles %}
+                <span> - </span>
+                <a href="{{ path('admin_delete', {'id': user.id}) }}" class="font-medium text-primary-600 dark:text-primary-500 hover:underline">Supprimer</a>
+
+                {% if user.isActive %}
+                    <span> - </span>
+                    <a href="{{ path('admin_deactivate', {'id': user.id}) }}"
+                       class="font-medium text-primary-600 dark:text-primary-500 hover:underline">Désactiver</a>
+                {% else %}
+                    <span> - </span>
+                    <a href="{{ path('admin_activate', {'id': user.id}) }}"
+                       class="font-medium text-primary-600 dark:text-primary-500 hover:underline">Activer</a>
+                {% endif %}
+            {% endif %}
+        </td>
+    </tr>
+{% else %}
+    <tr>
+        <td colspan="7">no records found</td>
+    </tr>
+{% endfor %}
