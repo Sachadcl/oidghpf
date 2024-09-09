@@ -14,7 +14,8 @@
 
 		</td>
 		<td class="px-6 py-4">
-			{{ outing.slots }}
+			{{ outing.idMember|length }}/{{ outing.slots }}
+
 
 		</td>
 
@@ -23,11 +24,20 @@
 
 		</td>
 		<td class="px-6 py-4">
-			x
+			{% if app.user in outing.idMember %}
+
+				X
+			{% endif %}
+
 		</td>
 		<td class="px-6 py-4">
-			A FAIRE
+			{% if outing.idOrganizer %}
+				{{ outing.idOrganizer.email }}
+			{% else %}
+				N/A
+			{% endif %}
 		</td>
+
 		<td class="px-6 py-4 text-right">
 			<a href="{{ path('app_outing_edit', {'id': outing.id}) }}" class="font-medium text-primary-600 dark:text-primary-500 hover:underline">Edit</a>
 			<a href="{{ path('app_outing_show', {'id': outing.id}) }}" class="font-medium text-primary-600 dark:text-primary-500 hover:underline">Afficher</a>

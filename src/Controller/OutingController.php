@@ -38,6 +38,7 @@ final class OutingController extends AbstractController
         }
 
         return $this->render('outing/new.html.twig', [
+            "is_editable" => false,
             'outing' => $outing,
             'form' => $form,
         ]);
@@ -62,10 +63,11 @@ final class OutingController extends AbstractController
             $outing->setState($newOutingState);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_outing_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('main_home', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('outing/edit.html.twig', [
+            "is_editable" => true,
             'outing' => $outing,
             'form' => $form,
         ]);

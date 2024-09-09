@@ -24,24 +24,21 @@ class OutingType extends AbstractType
                 'widget' => 'single_text',
             ])
             ->add('slots')
-            ->add('state')
+            ->add('state', null, [
+                "disabled" => true
+            ])
             ->add('id_campus', EntityType::class, [
                 'class' => Campus::class,
-                'choice_label' => 'id',
+                'choice_label' => 'campus_name',
             ])
             ->add('id_city', EntityType::class, [
                 'class' => City::class,
-                'choice_label' => 'id',
+                'choice_label' => 'place_name',
             ])
-            ->add('id_organizer', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-            ])
-            ->add('id_member', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-                'multiple' => true,
-            ])
+
+
+
+
         ;
     }
 
