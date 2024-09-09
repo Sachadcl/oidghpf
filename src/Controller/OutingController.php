@@ -52,6 +52,12 @@ final class OutingController extends AbstractController
         ]);
     }
 
+    #[Route('/ajax/{id}', name: 'app_outing_show_ajax', methods: ['GET'])]
+    public function showwithModal(Outing $outing): Response
+    {
+        return $this->json($outing, 200, [], ['groups' => 'outing:read']);
+    }
+
     #[Route('/{id}/edit', name: 'app_outing_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, OutingService $outingService, Outing $outing, EntityManagerInterface $entityManager): Response
     {

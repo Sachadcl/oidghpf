@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: OutingRepository::class)]
 class Outing
@@ -18,15 +19,19 @@ class Outing
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['outing:read'])]
     private ?string $outing_name = null;
 
     #[ORM\ManyToOne(inversedBy: 'outings')]
+    #[Groups(['outing:read'])]
     private ?Campus $id_campus = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Groups(['outing:read'])]
     private ?DateTimeInterface $outing_date = null;
 
     #[ORM\ManyToOne(inversedBy: 'outings')]
+    #[Groups(['outing:read'])]
     private ?City $id_city = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
