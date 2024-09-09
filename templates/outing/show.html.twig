@@ -4,8 +4,9 @@
 {% endblock %}
 
 {% block body %}
-	<section class="bg-white dark:bg-gray-900">
-		<div class="max-w-2xl px-4 py-8 mx-auto lg:py-16">
+	<section class="bg-gray-50 dark:bg-gray-900 py-6 flex items-center">
+		<div class="max-w-screen-xl px-4 mx-auto lg:px-12 w-full">
+			<div class="relative bg-white shadow-md dark:bg-gray-800 sm:rounded-lg px-8 py-6">
 			<h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Détails de la sortie</h2>
 
 			<div class="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
@@ -49,18 +50,17 @@
 				</div>
 
 				<div class="w-full">
-					<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-					<textarea type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" readonly>
-						{{ outing.description }}
-					</textarea>
+					<label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+					<textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" readonly>{{ outing.description }}</textarea>
 				</div>
 
 
 			</div>
 
 			<span class='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>Participants:</span>
-			<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-				<thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
+				<div class="relative overflow-x-auto shadow-md sm:rounded-lg w-full max-w-6xl">
+				<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+					<thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
 					<tr>
 						<th scope="col" class="px-6 py-3">
 							Pseudo
@@ -68,43 +68,38 @@
 						<th scope="col" class="px-6 py-3">
 							Nom
 						</th>
-
 					</tr>
-				</thead>
-				<tbody>
-					<tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-						{% for member in outing.idMember %}
-
+					</thead>
+					<tbody>
+					{% for member in outing.idMember %}
+						<tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
 							<td class="px-6 py-4">
 								{{ member.username }}
 							</td>
 							<td class="px-6 py-4">
-								{{ member.lastName }}
-								{{ member.firstName }}
-
-
+								{{ member.lastName }} {{ member.firstName }}
 							</td>
-						{% else %}
-							<td class="px-6 py-4">
+						</tr>
+					{% else %}
+						<tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
+							<td colspan="2" class="px-6 py-4">
 								Aucun membre inscrit.
-
 							</td>
-
-						{% endfor %}
-
-
-					</tr>
-
-				</tbody>
-			</table>
+						</tr>
+					{% endfor %}
+					</tbody>
+				</table>
+				</div>
 
 
-			<div class="flex items-center space-x-4">
+
+			<div class="flex items-center space-x-4 pt-4">
 				<a href="{{ path('main_home') }}" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
 					Retour à la liste
 				</a>
 
 			</div>
 		</div>
+	</div>
 	</section>
 {% endblock %}
