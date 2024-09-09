@@ -109,7 +109,6 @@ class UserType extends AbstractType
             ])
             ->add('profile_picture', FileType::class, [
                 'mapped' => false,
-                'label' => 'Changer votre Photo de profil :',
                 'attr' => [
                     'accept' => 'image/*',
                     'hidden' => true,

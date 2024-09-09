@@ -35,6 +35,10 @@ class OutingType extends AbstractType
                 'class' => City::class,
                 'choice_label' => 'place_name',
             ])
+            ->add('description', null, [
+                'label' => 'Description de la sortie',
+                'attr' => ['rows' => 5],
+            ])
 
 
 

@@ -47,6 +47,9 @@ class Outing
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'outings')]
     private Collection $id_member;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $description = null;
+
     public function __construct()
     {
         $this->id_member = new ArrayCollection();
@@ -185,6 +188,18 @@ class Outing
     public function removeIdMember(User $idMember): static
     {
         $this->id_member->removeElement($idMember);
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
 
         return $this;
     }

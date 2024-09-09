@@ -126,7 +126,8 @@ class AppFixtures extends Fixture
         $outing->setIdCity($this->city);
         $outing->setOutingName($this->faker->company());
 
-
+        $outing->setDescription($this->faker->text());
+        $outing->setIdOrganizer($signedUser);
         $outing->setSlots($this->faker->numberBetween(1, 50));
         $outing->addIdMember($signedUser);
         $manager->persist($outing);
