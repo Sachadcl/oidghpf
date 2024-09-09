@@ -1,8 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<section class="bg-white dark:bg-gray-900">
-		<div class="max-w-2xl px-4 py-8 mx-auto lg:py-16">
+	<section class="bg-gray-50 dark:bg-gray-900 py-6 flex items-center">
+		<div class="max-w-screen-xl px-4 mx-auto lg:px-12 w-full">
+			<div class="relative bg-white shadow-md dark:bg-gray-800 sm:rounded-lg px-8 py-6">
 			<h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Mon profil</h2>
 			{{ form_start(userForm, {'attr': {'class': 'grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5'}}) }}
 			<div class="w-full">
@@ -83,6 +84,7 @@
 
 			{{ form_end(userForm) }}
 		</div>
+	</div>
 	</section>
 
 	<script>
