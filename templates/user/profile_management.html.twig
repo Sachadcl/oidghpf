@@ -2,12 +2,6 @@
 
 {% block body %}
 	<section class="bg-white dark:bg-gray-900">
-		<div class="w-1/4 mr-4">
-			<img class="w-20 shadow-md" src="{{ asset(app.user.profilePicture) }}" alt="photo_de_profile"/>
-
-
-		</div>
-
 		<div class="max-w-2xl px-4 py-8 mx-auto lg:py-16">
 			<h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Mon profil</h2>
 			{{ form_start(userForm, {'attr': {'class': 'grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5'}}) }}
@@ -50,31 +44,92 @@
 				{{ form_label(userForm.id_campus, 'Campus', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
 				{{ form_widget(userForm.id_campus, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'}}) }}
 			</div>
-			{# <div class="sm:col-span-2">
-																																																																			{{ form_label(userForm.profile_picture, 'Photo de profil', {'label_attr': {'class': 'sr-only'}}) }}
-																																																																			{{ form_widget(userForm.profile_picture, {'attr': {'class': 'block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 file:bg-gray-50 file:border-0 file:me-4 file:py-3 file:px-4 dark:file:bg-neutral-700 dark:file:text-neutral-400'}}) }}
-																																																																		</div> #}
+
 			<div class="w-full">
 				{{ form_label(userForm.current_password, 'Mot de passe actuel', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
 				{{ form_widget(userForm.current_password, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'}}) }}
 			</div>
 
-			<div class="w-full">
-				{{ form_label(userForm.profile_picture, 'Uploader une photo de profil', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-				{{ form_widget(userForm.profile_picture, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'}}) }}
 
-			</div>
-
-
-			<div class="w-full">
-
-
-				<div class="flex items-center space-x-4 sm:col-span-2">
-					<button type="submit" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-						Enregistrer
-					</button>
+			<div class="sm:col-span-2">
+				<div class="max-w-sm mx-auto bg-white rounded-lg shadow-md overflow-hidden items-center">
+					<div class="px-4 py-6">
+						<div id="image-preview" class="max-w-sm p-6 mb-4 bg-gray-100 border-dashed border-2 border-gray-400 rounded-lg items-center mx-auto text-center cursor-pointer">
+							<input id="upload" type="file" class="hidden" accept="image/*" />
+							<label for="upload" class="cursor-pointer">
+								{% if app.user.profilePicture %}
+									<img src="{{ asset(app.user.profilePicture) }}" class="max-h-48 rounded-lg mx-auto" alt="Image preview"/>
+								{% else %}
+									<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-gray-700 mx-auto mb-4">
+										<path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+									</svg>
+									<h5 class="mb-2 text-xl font-bold tracking-tight text-gray-700">Upload picture</h5>
+									<p class="font-normal text-sm text-gray-400 md:px-6">Choose photo size should be less than <b class="text-gray-600">2mb</b></p>
+									<p class="font-normal text-sm text-gray-400 md:px-6">and should be in <b class="text-gray-600">JPG, PNG, or GIF</b> format.</p>
+								{% endif %}
+								<span id="filename" class="text-gray-500 bg-gray-200 z-50"></span>
+							</label>
+						</div>
+					</div>
 				</div>
-				{{ form_end(userForm) }}
+				{{ form_widget(userForm.profile_picture, {'attr': {'class': 'hidden'}}) }}
 			</div>
-		</section>
+
+			<div class="sm:col-span-2">
+				<button type="submit" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+					Enregistrer
+				</button>
+			</div>
+
+			{{ form_end(userForm) }}
+		</div>
+	</section>
+
+	<script>
+		const uploadInput = document.getElementById('upload');
+		const filenameLabel = document.getElementById('filename');
+		const imagePreview = document.getElementById('image-preview');
+		const profilePictureInput = document.querySelector('input[name="user[profile_picture]"]');
+
+		// Check if the event listener has been added before
+		let isEventListenerAdded = false;
+
+		uploadInput.addEventListener('change', (event) => {
+			const file = event.target.files[0];
+			if (file) {
+				filenameLabel.textContent = file.name;
+				const reader = new FileReader();
+				reader.onload = (e) => {
+					imagePreview.innerHTML = `<img src="${e.target.result}" class="max-h-48 rounded-lg mx-auto" alt="Image preview" />`;
+					imagePreview.classList.remove('border-dashed', 'border-2', 'border-gray-400');
+					// Add event listener for image preview only once
+					if (!isEventListenerAdded) {
+						imagePreview.addEventListener('click', () => {
+							uploadInput.click();
+						});
+						isEventListenerAdded = true;
+					}
+					// Set the file to the hidden form input
+					profilePictureInput.files = uploadInput.files;
+				};
+				reader.readAsDataURL(file);
+			} else {
+				filenameLabel.textContent = '';
+				imagePreview.innerHTML = `<div class="bg-gray-200 h-48 rounded-lg flex items-center justify-center text-gray-500">No image preview</div>`;
+				imagePreview.classList.add('border-dashed', 'border-2', 'border-gray-400');
+				// Remove the event listener when there's no image
+				imagePreview.removeEventListener('click', () => {
+					uploadInput.click();
+				});
+				isEventListenerAdded = false;
+				// Clear the hidden form input
+				profilePictureInput.value = '';
+			}
+		});
+
+		uploadInput.addEventListener('click', (event) => {
+			event.stopPropagation();
+		});
+
+	</script>
 	{% endblock %}
