@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Outing;
 use App\Form\OutingType;
 use App\Repository\OutingRepository;
+use App\Service\OutingService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -51,12 +52,14 @@ final class OutingController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_outing_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Outing $outing, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, OutingService $outingService, Outing $outing, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(OutingType::class, $outing);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $newOutingState = $outingService->calculateOutingState($outing);
+            $outing->setState($newOutingState);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_outing_index', [], Response::HTTP_SEE_OTHER);
