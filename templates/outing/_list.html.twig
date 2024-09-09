@@ -20,8 +20,17 @@
 		</td>
 
 		<td class="px-6 py-4">
-			{{ outing.state }}
-
+			{% if outing.state == 'EN COURS' %}
+				<span class="text-green-600">En cours</span>
+			{% elseif outing.state == 'PASSEE' %}
+				<span class="text-red-600">Passée</span>
+			{% elseif outing.state == 'CLOTUREE' %}
+				<span class="text-yellow-600">Fermée</span>
+			{% elseif outing.state == 'HISTORISEE' %}
+				<span class="text-gray-600">Historisée</span>
+			{% else %}
+				<span class="text-gray-500">Inconnu</span>
+			{% endif %}
 		</td>
 		<td class="px-6 py-4">
 			{% if app.user in outing.idMember %}
@@ -39,16 +48,22 @@
 		</td>
 
 		<td class="px-6 py-4 text-right">
-			<a href="{{ path('app_outing_edit', {'id': outing.id}) }}" class="font-medium text-primary-600 dark:text-primary-500 hover:underline">Edit</a>
-			<a href="{{ path('app_outing_show', {'id': outing.id}) }}" class="font-medium text-primary-600 dark:text-primary-500 hover:underline">Afficher</a>
+	{% if outing.state == 'HISTORISEE' %}
 
-
-			<span>
+	{% else %}
+		<a href="{{ path('app_outing_edit', {'id': outing.id}) }}" class="font-medium text-primary-600 dark:text-primary-500 hover:underline">Edit</a>
+		<span>
 				-
 			</span>
-			<button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="font-medium text-primary-600 dark:text-primary-500 hover:underline" type="button">
-				Annuler
-			</button>
+		<a href="{{ path('app_outing_show', {'id': outing.id}) }}" class="font-medium text-primary-600 dark:text-primary-500 hover:underline">Afficher</a>
+		<span>
+				-
+			</span>
+		<button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="font-medium text-primary-600 dark:text-primary-500 hover:underline" type="button">
+			Annuler
+		</button>
+	{% endif %}
+
 		</td>
 	</tr>
 {% else %}
