@@ -87,4 +87,24 @@ final class OutingController extends AbstractController
 
         return $this->redirectToRoute('app_outing_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/withdrew/{id}', name: 'app_outing_withdrew')]
+    public function withdrew (Outing $outing, Security $security, EntityManagerInterface $entityManager): Response
+    {
+        if(!$outing->getIdMember()->contains($security->getUser())) {
+            return $this->redirectToRoute('main_home');
+        }
+
+        if(strcasecmp($outing->getState(), "ouvert") == 0){
+            $outing->getIdMember()->removeElement($security->getUser());
+
+            if($outing->getRegistrationDeadline() < new \DateTime()){
+                $outing->setSlots($outing->getSlots() + 1);
+            }
+
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('main_home');
+    }
 }

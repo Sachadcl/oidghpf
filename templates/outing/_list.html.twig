@@ -53,9 +53,9 @@
             {% else %}
 
                 {% if outing.state|lower == 'ouvert' %}
-                    {% if app.user.id in outing.idMember %}
+                    {% if app.user in outing.idMember %}
                         <span> - </span>
-                        <a href="#" class="font-medium text-primary-600 dark:text-primary-500 hover:underline">Se
+                        <a href="{{ path('app_outing_withdrew', {'id': outing.id}) }}" class="font-medium text-primary-600 dark:text-primary-500 hover:underline">Se
                             désister</a>
                     {% else %}
                         <span> - </span>
