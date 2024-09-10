@@ -23,6 +23,7 @@ class MainController extends AbstractController
     #[Route('/', name: 'home')]
     public function home(OutingRepository $outingRepository, CampusRepository $campusRepository): Response
     {
+        $signedOutings = $outingRepository->findAll();
         return $this->render('home.html.twig', [
             'outings' => $outingRepository->findAll(),
             'campuses' => $campusRepository->findAll(),

@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -21,6 +22,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
+    #[Groups(['user:read'])]
     #[Assert\NotBlank(message: "Votre adresse e-mail ne doit pas être vide.")]
     #[Assert\Email(message: "Ceci n'est pas une adresse e-mail valide.")]
     #[Assert\Length(max: 180, maxMessage: "Votre adresse e-mail est trop longue.")]
@@ -41,6 +43,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $username = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['user:read'])]
     #[Assert\NotBlank(message: "Le nom ne doit pas être vide.")]
     #[Assert\Length(
         min: 2,
@@ -55,6 +58,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $last_name = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['user:read'])]
     #[Assert\NotBlank(message: "Le prénom ne doit pas être vide.")]
     #[Assert\Length(
         min: 2,
@@ -80,14 +84,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         pattern: "/^\+?[0-9]{10,15}$/",
         message: "Le numéro de téléphone doit être valide, avec ou sans l'indicatif international."
     )]
+    #[Groups(['user:read'])]
     private ?string $telephone = null;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['user:read'])]
     #[Assert\NotNull(message: "Le campus ne peut pas être nul.")]
     private ?Campus $id_campus = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['user:read'])]
     #[Assert\Url(message: "L'URL de l'image de profil doit être valide.")]
     #[Assert\Length(
         max: 255,

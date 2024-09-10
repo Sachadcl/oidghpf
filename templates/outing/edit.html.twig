@@ -4,11 +4,12 @@
 {% endblock %}
 
 {% block body %}
-
-
-	{{ include('outing/_form.html.twig', {'button_label': 'Update'}) }}
-
-{# <a href="{{ path('app_outing_index') }}">back to list</a> #}
-
-	{# {{ include('outing/_delete_form.html.twig') }} #}
+<section class="bg-gray-50 dark:bg-gray-900 py-6 flex items-center">
+	<div class="max-w-screen-xl px-4 mx-auto lg:px-12 w-full">
+		<div class="relative bg-white shadow-md dark:bg-gray-800 sm:rounded-lg px-8 py-6">
+			<h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Modifier une sortie</h2>
+			{{ include('outing/_form.html.twig', {'button_label': 'Update'}) }}
+		</div>
+	</div>
+</section>
 {% endblock %}

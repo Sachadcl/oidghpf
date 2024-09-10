@@ -3,31 +3,54 @@
     <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
             {{ outing.outingName }}
-
         </th>
+
         <td class="px-6 py-4">
             {{ outing.outingDate ? outing.outingDate|date('Y-m-d H:i:s') : '' }}
-
         </td>
+
         <td class="px-6 py-4">
             {{ outing.registrationDeadline ? outing.registrationDeadline|date('Y-m-d H:i:s') : '' }}
+		</td>
 
-        </td>
-        <td class="px-6 py-4">
-            {{ outing.slots }}
-
+		<td class="px-6 py-4">
+			{{ outing.idMember|length }}/{{ outing.slots }}
         </td>
 
         <td class="px-6 py-4">
-            {{ outing.state }}
+            {% if outing.state == 'EN COURS' %}
+                <span class="text-green-600">En cours</span>
+            {% elseif outing.state == 'PASSEE' %}
+                <span class="text-red-600">Passée</span>
+            {% elseif outing.state == 'CLOTUREE' %}
+                <span class="text-yellow-600">Cloturée</span>
+            {% elseif outing.state == 'HISTORISEE' %}
+                <span class="text-gray-600">Historisée</span>
+            {% else %}
+                <span class="text-gray-500">Inconnu</span>
+            {% endif %}
+        </td>
 
-        </td>
         <td class="px-6 py-4">
-            x
+            {% if app.user in outing.idMember %}
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+            {% else %}
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            {% endif %}
         </td>
+
         <td class="px-6 py-4">
-            A FAIRE
+            {% if outing.idOrganizer %}
+                <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" id="plannerLink" data-planner-email="{{ outing.idOrganizer.email }}" class="font-medium text-primary-600 dark:text-primary-500 hover:underline">{{ outing.idOrganizer.email }}</button>
+            {% else %}
+                N/A
+            {% endif %}
         </td>
+
         <td class="px-6 py-4 text-right">
 
             <a href="{{ path('app_outing_show', {'id': outing.id}) }}"
@@ -66,9 +89,9 @@
             {% endif %}
 
         </td>
-    </tr>
+	</tr>
 {% else %}
-    <tr>
-        <td colspan="7">no records found</td>
-    </tr>
+	<tr>
+		<td colspan="7">no records found</td>
+	</tr>
 {% endfor %}

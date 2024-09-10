@@ -19,6 +19,7 @@ class OutingRepository extends ServiceEntityRepository
 
     public function search(Filter $filter): array
     {
+
         $qb = $this->createQueryBuilder('o');
 
         if ($filter->getName()) {

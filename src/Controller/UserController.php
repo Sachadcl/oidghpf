@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -16,10 +17,12 @@ use Symfony\Component\Routing\Attribute\Route;
 class UserController extends AbstractController
 {
     private UserRepository $userRepository;
+    private FileUploader $fileUploader;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepository $userRepository, FileUploader $fileUploader)
     {
         $this->userRepository = $userRepository;
+        $this->fileUploader = $fileUploader;
     }
 
     #[Route('/card/{id}', name: 'profile')]
@@ -32,9 +35,22 @@ class UserController extends AbstractController
         ));
     }
 
-    #[Route('/settings', name: 'settings')]
-    public function settings(Request $request, EntityManagerInterface $entityManager, Security $security, UserPasswordHasherInterface $userPasswordHasher): Response
+    #[Route('/planner/{email}', name: 'profile')]
+    public function plannerProfile(string $email): Response
     {
+        $user = $this->userRepository->getByEmail($email);
+
+        return $this->json($user, 200, [], ['groups' => 'user:read']);
+    }
+
+    #[Route('/settings', name: 'settings')]
+    public function settings(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        Security $security,
+        UserPasswordHasherInterface $userPasswordHasher
+    ): Response {
+
         $user = $security->getUser();
 
         $form = $this->createForm(UserType::class, $user);
@@ -48,6 +64,12 @@ class UserController extends AbstractController
             if ($plainPassword) {
                 $newPassword = $form->get('new_password')->getData();
                 $user->setPassword($userPasswordHasher->hashPassword($user, $newPassword));
+            }
+
+            $file = $form->get('profile_picture')->getData();
+            if ($file) {
+                $newFileName = $this->fileUploader->upload($file);
+                $user->setProfilePicture($newFileName);
             }
 
             $entityManager->persist($user);
