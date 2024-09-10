@@ -35,6 +35,14 @@ class UserController extends AbstractController
         ));
     }
 
+    #[Route('/planner/{email}', name: 'profile')]
+    public function plannerProfile(string $email): Response
+    {
+        $user = $this->userRepository->getByEmail($email);
+
+        return $this->json($user, 200, [], ['groups' => 'user:read']);
+    }
+
     #[Route('/settings', name: 'settings')]
     public function settings(
         Request $request,

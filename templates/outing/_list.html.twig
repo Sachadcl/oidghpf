@@ -41,7 +41,9 @@
 		</td>
 		<td class="px-6 py-4">
 			{% if outing.idOrganizer %}
-				{{ outing.idOrganizer.email }}
+				<button data-modal-target="crud-modal" data-modal-toggle="crud-modal" id="plannerLink" data-planner-email="{{ outing.idOrganizer.email }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ outing.idOrganizer.email }}</button>
+
+
 			{% else %}
 				N/A
 			{% endif %}
@@ -59,11 +61,11 @@
 					<span>
 						-
 					</span>
-					<button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="font-medium text-primary-600 dark:text-primary-500 hover:underline" type="button" data-outing-id="{{ outing.id }}">
+					<button data-modal-target="crud-modal" data-modal-toggle="crud-modal" id="outingCancel" class="font-medium text-primary-600 dark:text-primary-500 hover:underline" type="button" data-outing-id="{{ outing.id }}">
 
 						Annuler
 					</button>
-					
+
 			{% endif %}
 
 		</td>
