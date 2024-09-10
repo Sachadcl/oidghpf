@@ -19,14 +19,13 @@ class OutingService
             throw new \LogicException('Les dates de la sortie doivent être définies.');
         }
 
-        if ($now > $outingDate) {
+        if ($now > $oneMonthAfterOuting) {
+            return OutingStatus::HISTORY->value;
+        } elseif ($now > $outingDate) {
             return OutingStatus::PASSED->value;
         } elseif ($now > $registrationDeadline) {
             return OutingStatus::CLOSED->value;
-        } elseif ($now > $oneMonthAfterOuting) {
-            return OutingStatus::HISTORY->value;
-        }
-        else {
+        } else {
             return OutingStatus::ONGOING->value;
         }
     }
