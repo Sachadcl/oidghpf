@@ -25,7 +25,12 @@ class OutingService
             return OutingStatus::PASSED->value;
         } elseif ($now > $registrationDeadline) {
             return OutingStatus::CLOSED->value;
-        } else {
+        } elseif ($now < $outingDate && $now < $registrationDeadline) {
+            return OutingStatus::OPEN->value;
+        } elseif ($outing->getState() === OutingStatus::CREATION->value) {
+            return OutingStatus::CREATION->value;
+        }
+        else {
             return OutingStatus::ONGOING->value;
         }
     }
