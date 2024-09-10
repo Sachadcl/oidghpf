@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\AddUserType;
+use App\Form\ImportCsvType;
+use App\Repository\CampusRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route('/admin', name: 'admin_')]
 #[IsGranted('ROLE_ADMIN')]
@@ -60,6 +63,54 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('admin_user-management');
         }
         return $this->render('admin/add_user.html.twig', ['userForm' => $form->createView(),]);
+    }
+
+    #[Route('/import-csv', name: 'import-csv')]
+    public function importCsv(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher, CampusRepository $campusRepository, ValidatorInterface $validator): Response
+    {
+        $form = $this->createForm(ImportCsvType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form->get('csvFile')->getData();
+
+            if (($handle = fopen($file->getPathname(), "r")) !== false) {
+                while (($data = fgetcsv($handle)) !== false) {
+                    $user = new User();
+
+                    $user->setIdCampus($campusRepository->find($data[0]));
+                    $user->setEmail($data[1]);
+                    $user->setUsername($data[2]);
+                    $user->setLastName($data[3]);
+                    $user->setFirstName($data[4]);
+                    $user->setTelephone($data[5]);
+                    $user->setPassword($userPasswordHasher->hashPassword($user, $data[6]));
+                    $user->setRoles([$data[7]]);
+                    $user->setIsActive(filter_var($data[8]));
+
+                    $profilePicture = "https://via.placeholder.com/640x480.png/004455?text=" . $this->generateRandomLetters();
+                    $user->setProfilePicture($profilePicture);
+
+                    $errors = $validator->validate($user);
+                    if (count($errors) > 0) {
+                        return $this->render('admin/import-csv.html.twig', [
+                            'importForm' => $form->createView(),
+                            'error' => "Votre fichier ou ses données sont invalides."
+                        ]);
+                    }
+
+                    $entityManager->persist($user);
+                }
+
+                fclose($handle);
+                $entityManager->flush();
+            }
+
+            $this->addFlash('success', 'Utilisateur importés avec succès.');
+            return $this->redirectToRoute('admin_user-management');
+        }
+
+        return $this->render('admin/import-csv.html.twig', ['importForm' => $form->createView(), 'error' => null]);
     }
 
     #[Route('/delete/{id}', name: 'delete')]
