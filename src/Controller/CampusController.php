@@ -22,6 +22,7 @@ class CampusController  extends AbstractController
             'campus' => $campus,
         ]);
     }
+
     #[Route('/campus/delete/{id}', name: 'app_campus_delete')]
     public function delete(CampusRepository $campusRepository, EntityManagerInterface $manager, int $id): Response
     {

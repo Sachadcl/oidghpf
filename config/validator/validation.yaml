@@ -11,28 +11,27 @@ App\Entity\User:
           max: 180
     username:
       - NotBlank: ~
-      - Regex: '/^[a-zA-Z0-9_]+$/'
+      - Regex: "/^[a-zA-Z0-9_]+$/"
       - Length:
           min: 3
           max: 50
     last_name:
       - NotBlank: ~
-      - Regex: '/^[a-zA-ZÀ-ÖØ-öø-ÿ]+$/'
+      - Regex: "/^[a-zA-ZÀ-ÖØ-öø-ÿ]+$/"
       - Length:
           min: 2
           max: 100
     first_name:
       - NotBlank: ~
-      - Regex: '/^[a-zA-ZÀ-ÖØ-öø-ÿ]+$/'
+      - Regex: "/^[a-zA-ZÀ-ÖØ-öø-ÿ]+$/"
       - Length:
           min: 2
           max: 100
     telephone:
       - NotBlank: ~
-      - Regex: '/^\+?[0-9]{10,15}$/'
       - Length:
           min: 10
-          max: 15
+          max: 10000
     password:
       - NotBlank: ~
     roles:

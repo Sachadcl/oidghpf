@@ -74,16 +74,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "Le numéro de téléphone ne doit pas être vide.")]
-    #[Assert\Length(
-        min: 10,
-        max: 15,
-        minMessage: "Le numéro de téléphone doit contenir au moins {{ limit }} chiffres.",
-        maxMessage: "Le numéro de téléphone ne peut pas dépasser {{ limit }} chiffres."
-    )]
-    #[Assert\Regex(
-        pattern: "/^\+?[0-9]{10,15}$/",
-        message: "Le numéro de téléphone doit être valide, avec ou sans l'indicatif international."
-    )]
     #[Groups(['user:read'])]
     private ?string $telephone = null;
 
@@ -116,7 +106,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     /**
-     * @var boolean Indicates whether the user is active or not
+     * @var boolean Indicates whether the user account  is active or not
      */
     #[ORM\Column]
     private ?bool $isActive = null;
