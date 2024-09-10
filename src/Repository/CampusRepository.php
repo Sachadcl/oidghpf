@@ -40,4 +40,12 @@ class CampusRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function search(string $search): array
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.campus_name LIKE :search')
+            ->setParameter('search', '%' . $search . '%')
+            ->getQuery()
+            ->getResult();
+    }
 }
