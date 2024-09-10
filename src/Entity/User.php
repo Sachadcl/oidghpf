@@ -5,12 +5,15 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+#[UniqueEntity(fields: ['email'], message: 'Cette adresse e-mail est déjà utilisée.')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -20,26 +23,64 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 180)]
     #[Groups(['user:read'])]
+    #[Assert\NotBlank(message: "Votre adresse e-mail ne doit pas être vide.")]
+    #[Assert\Email(message: "Ceci n'est pas une adresse e-mail valide.")]
+    #[Assert\Length(max: 180, maxMessage: "Votre adresse e-mail est trop longue.")]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le nom d'utilisateur ne doit pas être vide.")]
+    #[Assert\Length(
+        min: 3,
+        max: 50,
+        minMessage: "Le nom d'utilisateur doit contenir au moins {{ limit }} caractères.",
+        maxMessage: "Le nom d'utilisateur ne peut pas dépasser {{ limit }} caractères."
+    )]
+    #[Assert\Regex(
+        pattern: "/^[a-zA-Z0-9_]+$/",
+        message: "Le nom d'utilisateur ne peut contenir que des lettres, des chiffres et des underscores."
+    )]
     private ?string $username = null;
 
     #[ORM\Column(length: 255)]
     #[Groups(['user:read'])]
+    #[Assert\NotBlank(message: "Le nom ne doit pas être vide.")]
+    #[Assert\Length(
+        min: 2,
+        max: 100,
+        minMessage: "Le nom doit contenir au moins {{ limit }} caractères.",
+        maxMessage: "Le nom ne peut pas dépasser {{ limit }} caractères."
+    )]
+    #[Assert\Regex(
+        pattern: "/^[a-zA-ZÀ-ÖØ-öø-ÿ]+$/",
+        message: "Le nom ne peut contenir que des lettres."
+    )]
     private ?string $last_name = null;
 
     #[ORM\Column(length: 255)]
     #[Groups(['user:read'])]
+    #[Assert\NotBlank(message: "Le prénom ne doit pas être vide.")]
+    #[Assert\Length(
+        min: 2,
+        max: 100,
+        minMessage: "Le prénom doit contenir au moins {{ limit }} caractères.",
+        maxMessage: "Le prénom ne peut pas dépasser {{ limit }} caractères."
+    )]
+    #[Assert\Regex(
+        pattern: "/^[a-zA-ZÀ-ÖØ-öø-ÿ]+$/",
+        message: "Le prénom ne peut contenir que des lettres."
+    )]
     private ?string $first_name = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le numéro de téléphone ne doit pas être vide.")]
     #[Groups(['user:read'])]
     private ?string $telephone = null;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(['user:read'])]
+    #[Assert\NotNull(message: "Le campus ne peut pas être nul.")]
     private ?Campus $id_campus = null;
 
     #[ORM\Column(length: 255)]
@@ -63,6 +104,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    /**
+     * @var boolean Indicates whether the user account  is active or not
+     */
+    #[ORM\Column]
+    private ?bool $isActive = null;
 
     public function getId(): ?int
     {
@@ -198,6 +245,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setOutings(Collection $outings): void
     {
         $this->outings = $outings;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(?bool $isActive): void
+    {
+        $this->isActive = $isActive;
     }
 
     /**

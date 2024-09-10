@@ -44,13 +44,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/settings', name: 'settings')]
-    public function settings(
-        Request $request,
-        EntityManagerInterface $entityManager,
-        Security $security,
-        UserPasswordHasherInterface $userPasswordHasher
-    ): Response {
-
+    public function settings(Request $request, EntityManagerInterface $entityManager, Security $security, UserPasswordHasherInterface $userPasswordHasher): Response {
         $user = $security->getUser();
 
         $form = $this->createForm(UserType::class, $user);

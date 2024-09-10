@@ -1,0 +1,40 @@
+App\Entity\User:
+  constraints:
+    - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
+  properties:
+    id_campus:
+      - NotBlank: ~
+    email:
+      - NotBlank: ~
+      - Email: ~
+      - Length:
+          max: 180
+    username:
+      - NotBlank: ~
+      - Regex: "/^[a-zA-Z0-9_]+$/"
+      - Length:
+          min: 3
+          max: 50
+    last_name:
+      - NotBlank: ~
+      - Regex: "/^[a-zA-ZÀ-ÖØ-öø-ÿ]+$/"
+      - Length:
+          min: 2
+          max: 100
+    first_name:
+      - NotBlank: ~
+      - Regex: "/^[a-zA-ZÀ-ÖØ-öø-ÿ]+$/"
+      - Length:
+          min: 2
+          max: 100
+    telephone:
+      - NotBlank: ~
+      - Length:
+          min: 10
+          max: 10000
+    password:
+      - NotBlank: ~
+    roles:
+      - NotBlank: ~
+    isActive:
+      - NotBlank: ~

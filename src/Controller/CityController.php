@@ -5,15 +5,16 @@ namespace App\Controller;
 use App\Repository\CityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
-use PDOException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class CityController  extends AbstractController
 {
     #[Route('/city', name: 'app_city')]
+    #[IsGranted('ROLE_ADMIN')]
     public function index(CityRepository $cityRepository): Response
     {
         $cities = $cityRepository->findAll();

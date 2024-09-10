@@ -6,11 +6,13 @@ namespace App\Controller;
 use App\Class\Filter;
 
 use App\Repository\CampusRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\OutingRepository;
-use App\Repository\UserRepository;
+use App\Service\OutingService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,13 +22,19 @@ use Symfony\Component\Serializer\SerializerInterface;
 #[Route('/', name: 'main_')]
 class MainController extends AbstractController
 {
-
     #[Route('/', name: 'home')]
-    public function home(OutingRepository $outingRepository, CampusRepository $campusRepository): Response
+    public function home(OutingRepository $outingRepository, CampusRepository $campusRepository, OutingService $outingService, EntityManagerInterface $manager): Response
     {
-        $signedOutings = $outingRepository->findAll();
+        $outings = $outingRepository->findAll();
+
+        foreach ($outings as $outing) {
+            $outing->setState($outingService->calculateOutingState($outing));
+            $manager->persist($outing);
+            $manager->flush();
+        }
+
         return $this->render('home.html.twig', [
-            'outings' => $outingRepository->findAll(),
+            'outings' => $outings,
             'campuses' => $campusRepository->findAll(),
         ]);
     }

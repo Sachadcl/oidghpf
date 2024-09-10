@@ -9,10 +9,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class CampusController  extends AbstractController
 {
     #[Route('/campus', name: 'app_campus')]
+    #[IsGranted('ROLE_ADMIN')]
     public function index(CampusRepository $campusRepository): Response
     {
         $campus = $campusRepository->findAll();
@@ -20,6 +22,7 @@ class CampusController  extends AbstractController
             'campus' => $campus,
         ]);
     }
+
     #[Route('/campus/delete/{id}', name: 'app_campus_delete')]
     public function delete(CampusRepository $campusRepository, EntityManagerInterface $manager, int $id): Response
     {
@@ -45,5 +48,4 @@ class CampusController  extends AbstractController
             'campus' => $campus,
         ]);
     }
-
 }
