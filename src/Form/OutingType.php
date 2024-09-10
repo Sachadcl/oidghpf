@@ -8,6 +8,7 @@ use App\Entity\Outing;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -24,9 +25,7 @@ class OutingType extends AbstractType
                 'widget' => 'single_text',
             ])
             ->add('slots')
-            ->add('state', null, [
-                "disabled" => true
-            ])
+
             ->add('id_campus', EntityType::class, [
                 'class' => Campus::class,
                 'choice_label' => 'campus_name',
@@ -35,9 +34,9 @@ class OutingType extends AbstractType
                 'class' => City::class,
                 'choice_label' => 'place_name',
             ])
-            ->add('description', null, [
+            ->add('description', TextareaType::class, [
                 'label' => 'Description de la sortie',
-                'attr' => ['rows' => 5],
+                'attr' => ['rows' => 3],
             ])
 
 

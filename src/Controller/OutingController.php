@@ -24,17 +24,19 @@ final class OutingController extends AbstractController
     }
 
     #[Route('/new', name: 'app_outing_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, OutingService $outingService, EntityManagerInterface $entityManager): Response
     {
         $outing = new Outing();
         $form = $this->createForm(OutingType::class, $outing);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $newOutingState = $outingService->calculateOutingState($outing);
+            $outing->setState($newOutingState);
             $entityManager->persist($outing);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_outing_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('main_home', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('outing/new.html.twig', [
