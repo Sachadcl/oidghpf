@@ -24,6 +24,10 @@
                 <span class="text-green-600">Ouvert</span>
             {% elseif outing.state == 'EN COURS' %}
                 <span class="text-green-600">En cours</span>
+            {% elseif outing.state == 'EN CREATION' %}
+                <span class="text-blue-600">En création</span>
+            {% elseif outing.state == 'OUVERT' %}
+                <span class="text-green-500">Ouvert</span>
             {% elseif outing.state == 'PASSEE' %}
                 <span class="text-red-600">Passée</span>
             {% elseif outing.state == 'CLOTUREE' %}
