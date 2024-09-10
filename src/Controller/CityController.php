@@ -18,8 +18,6 @@ class CityController  extends AbstractController
     #[IsGranted('ROLE_ADMIN')]
     public function index(CityRepository $cityRepository): Response
     {
-        $this->denyAccessUnlessGranted("ROLE_ADMIN");
-
         $cities = $cityRepository->findAll();
         return $this->render('city/index.html.twig', [
             'cities' => $cities,
