@@ -95,11 +95,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     #[Groups(['user:read'])]
-    #[Assert\Url(message: "L'URL de l'image de profil doit être valide.")]
-    #[Assert\Length(
-        max: 255,
-        maxMessage: "L'URL de l'image de profil est trop longue."
-    )]
     private ?string $profile_picture = null;
 
     /**

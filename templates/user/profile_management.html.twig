@@ -3,161 +3,182 @@
 {% block title %}ENI Sorties - Votre profil{% endblock %}
 
 {% block body %}
-	<section class="bg-gray-50 dark:bg-gray-900 py-6 flex items-center">
-		<div class="max-w-screen-xl px-4 mx-auto lg:px-12 w-full">
-			<div class="relative bg-white shadow-md dark:bg-gray-800 sm:rounded-lg px-8 py-6">
-			<h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Mon profil</h2>
-			{{ form_start(userForm, {'attr': {'class': 'grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5'}}) }}
-			<div class="w-full">
-				{{ form_label(userForm.username, 'Pseudo', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-				<div class="block mb-2 text-sm font-medium text-red-600 dark:text-red-500">
-					{{ form_errors(userForm.username) }}
-				</div>
-				{{ form_widget(userForm.username, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500', 'placeholder': 'Pseudo'}}) }}
-			</div>
-			<div class="w-full">
-				{{ form_label(userForm.last_name, 'Prénom', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-				<div class="block mb-2 text-sm font-medium text-red-600 dark:text-red-500">
-					{{ form_errors(userForm.last_name) }}
-				</div>
-				{{ form_widget(userForm.last_name, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500', 'placeholder': 'Prénom'}}) }}
-			</div>
-			<div class="w-full">
-				{{ form_label(userForm.first_name, 'Nom', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-				<div class="block mb-2 text-sm font-medium text-red-600 dark:text-red-500">
-					{{ form_errors(userForm.first_name) }}
-				</div>
-				{{ form_widget(userForm.first_name, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500', 'placeholder': 'Nom'}}) }}
-			</div>
-			<div class="w-full">
-				{{ form_label(userForm.email, 'Email', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-				<div class="block mb-2 text-sm font-medium text-red-600 dark:text-red-500">
-					{{ form_errors(userForm.email) }}
-				</div>
-				{{ form_widget(userForm.email, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500', 'placeholder': 'Email'}}) }}
-			</div>
-			<div class="w-full">
-				{{ form_label(userForm.new_password, 'Nouveau mot de passe', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-				<div class="block mb-2 text-sm font-medium text-red-600 dark:text-red-500">
-					{{ form_errors(userForm.new_password) }}
-				</div>
-				{{ form_widget(userForm.new_password, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'}}) }}
-			</div>
-			<div class="w-full">
-				{{ form_label(userForm.new_confirmation, 'Confirmation nouveau mot de passe', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-				<div class="block mb-2 text-sm font-medium text-red-600 dark:text-red-500">
-					{{ form_errors(userForm.new_confirmation) }}
-				</div>
-				{{ form_widget(userForm.new_confirmation, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'}}) }}
-			</div>
-			<div class="w-full">
-				{{ form_label(userForm.telephone, 'Téléphone', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-				<div class="relative">
-					<div class="absolute inset-y-0 start-0 top-0 flex items-center ps-3.5 pointer-events-none">
-						<svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewbox="0 0 19 18">
-							<path d="M18 13.446a3.02 3.02 0 0 0-.946-1.985l-1.4-1.4a3.054 3.054 0 0 0-4.218 0l-.7.7a.983.983 0 0 1-1.39 0l-2.1-2.1a.983.983 0 0 1 0-1.389l.7-.7a2.98 2.98 0 0 0 0-4.217l-1.4-1.4a2.824 2.824 0 0 0-4.218 0c-3.619 3.619-3 8.229 1.752 12.979C6.785 16.639 9.45 18 11.912 18a7.175 7.175 0 0 0 5.139-2.325A2.9 2.9 0 0 0 18 13.446Z"></path>
-						</svg>
-					</div>
-					<div class="block mb-2 text-sm font-medium text-red-600 dark:text-red-500">
-						{{ form_errors(userForm.telephone) }}
-					</div>
-					{{ form_widget(userForm.telephone, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', 'placeholder': '06 06 06 06 06'}}) }}
-				</div>
-			</div>
-			<div class="w-full">
-				{{ form_label(userForm.id_campus, 'Campus', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-				<div class="block mb-2 text-sm font-medium text-red-600 dark:text-red-500">
-					{{ form_errors(userForm.id_campus) }}
-				</div>
-				{{ form_widget(userForm.id_campus, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'}}) }}
-			</div>
-			<div class="w-full">
-				{{ form_label(userForm.current_password, 'Mot de passe actuel', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-				<div class="block mb-2 text-sm font-medium text-red-600 dark:text-red-500">
-					{{ form_errors(userForm.current_password) }}
-				</div>
-				{{ form_widget(userForm.current_password, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'}}) }}
-			</div>
-			<div class="sm:col-span-2">
-				<div class="max-w-sm mx-auto bg-white rounded-lg shadow-md overflow-hidden items-center">
-					<div class="px-4 py-6">
-						<div id="image-preview" class="max-w-sm p-6 mb-4 bg-gray-100 border-dashed border-2 border-gray-400 rounded-lg items-center mx-auto text-center cursor-pointer">
-							<input id="upload" type="file" class="hidden" accept="image/*" />
-							<label for="upload" class="cursor-pointer">
-								{% if app.user.profilePicture %}
-									<img src="{{ asset(app.user.profilePicture) }}" class="max-h-48 rounded-lg mx-auto" alt="Image preview"/>
-								{% else %}
-									<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-gray-700 mx-auto mb-4">
-										<path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
-									</svg>
-									<h5 class="mb-2 text-xl font-bold tracking-tight text-gray-700">Upload picture</h5>
-									<p class="font-normal text-sm text-gray-400 md:px-6">Choose photo size should be less than <b class="text-gray-600">2mb</b></p>
-									<p class="font-normal text-sm text-gray-400 md:px-6">and should be in <b class="text-gray-600">JPG, PNG, or GIF</b> format.</p>
-								{% endif %}
-								<span id="filename" class="text-gray-500 bg-gray-200 z-50"></span>
-							</label>
-						</div>
-					</div>
-				</div>
-				{{ form_widget(userForm.profile_picture, {'attr': {'class': 'hidden'}}) }}
-			</div>
+    <section class="bg-gray-50 dark:bg-gray-900 py-6 flex items-center">
+        <div class="max-w-screen-xl px-4 mx-auto lg:px-12 w-full">
+            <div class="relative bg-white shadow-md dark:bg-gray-800 sm:rounded-lg px-8 py-6">
+                <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Mon profil</h2>
 
-			<div class="sm:col-span-2">
-				<button type="submit" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-					Enregistrer
-				</button>
-			</div>
+                {{ form_start(userForm, {'attr': {'class': 'grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5'}}) }}
 
-			{{ form_end(userForm) }}
-		</div>
-	</div>
-	</section>
+                <div class="w-full">
+                    {{ form_label(userForm.username, 'Pseudo', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+                    <div class="block mb-2 text-sm font-medium text-red-600 dark:text-red-500">
+                        {{ form_errors(userForm.username) }}
+                    </div>
+                    {{ form_widget(userForm.username, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500', 'placeholder': 'Pseudo'}}) }}
+                </div>
 
-	<script>
-		const uploadInput = document.getElementById('upload');
-		const filenameLabel = document.getElementById('filename');
-		const imagePreview = document.getElementById('image-preview');
-		const profilePictureInput = document.querySelector('input[name="user[profile_picture]"]');
+                <div class="w-full">
+                    {{ form_label(userForm.last_name, 'Prénom', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+                    <div class="block mb-2 text-sm font-medium text-red-600 dark:text-red-500">
+                        {{ form_errors(userForm.last_name) }}
+                    </div>
+                    {{ form_widget(userForm.last_name, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500', 'placeholder': 'Prénom'}}) }}
+                </div>
 
-		// Check if the event listener has been added before
-		let isEventListenerAdded = false;
+                <div class="w-full">
+                    {{ form_label(userForm.first_name, 'Nom', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+                    <div class="block mb-2 text-sm font-medium text-red-600 dark:text-red-500">
+                        {{ form_errors(userForm.first_name) }}
+                    </div>
+                    {{ form_widget(userForm.first_name, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500', 'placeholder': 'Nom'}}) }}
+                </div>
 
-		uploadInput.addEventListener('change', (event) => {
-			const file = event.target.files[0];
-			if (file) {
-				filenameLabel.textContent = file.name;
-				const reader = new FileReader();
-				reader.onload = (e) => {
-					imagePreview.innerHTML = `<img src="${e.target.result}" class="max-h-48 rounded-lg mx-auto" alt="Image preview" />`;
-					imagePreview.classList.remove('border-dashed', 'border-2', 'border-gray-400');
-					// Add event listener for image preview only once
-					if (!isEventListenerAdded) {
-						imagePreview.addEventListener('click', () => {
-							uploadInput.click();
-						});
-						isEventListenerAdded = true;
-					}
-					// Set the file to the hidden form input
-					profilePictureInput.files = uploadInput.files;
-				};
-				reader.readAsDataURL(file);
-			} else {
-				filenameLabel.textContent = '';
-				imagePreview.innerHTML = `<div class="bg-gray-200 h-48 rounded-lg flex items-center justify-center text-gray-500">No image preview</div>`;
-				imagePreview.classList.add('border-dashed', 'border-2', 'border-gray-400');
-				// Remove the event listener when there's no image
-				imagePreview.removeEventListener('click', () => {
-					uploadInput.click();
-				});
-				isEventListenerAdded = false;
-				// Clear the hidden form input
-				profilePictureInput.value = '';
-			}
-		});
+                <div class="w-full">
+                    {{ form_label(userForm.email, 'Email', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+                    <div class="block mb-2 text-sm font-medium text-red-600 dark:text-red-500">
+                        {{ form_errors(userForm.email) }}
+                    </div>
+                    {{ form_widget(userForm.email, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500', 'placeholder': 'Email'}}) }}
+                </div>
 
-		uploadInput.addEventListener('click', (event) => {
-			event.stopPropagation();
-		});
+                <div class="w-full">
+                    {{ form_label(userForm.new_password, 'Nouveau mot de passe', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+                    <div class="block mb-2 text-sm font-medium text-red-600 dark:text-red-500">
+                        {{ form_errors(userForm.new_password) }}
+                    </div>
+                    {{ form_widget(userForm.new_password, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'}}) }}
+                </div>
 
-	</script>
-	{% endblock %}
+                <div class="w-full">
+                    {{ form_label(userForm.new_confirmation, 'Confirmation nouveau mot de passe', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+                    <div class="block mb-2 text-sm font-medium text-red-600 dark:text-red-500">
+                        {{ form_errors(userForm.new_confirmation) }}
+                    </div>
+                    {{ form_widget(userForm.new_confirmation, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'}}) }}
+                </div>
+
+                <div class="w-full">
+                    {{ form_label(userForm.telephone, 'Téléphone', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+                    <div class="relative">
+                        <div class="absolute inset-y-0 start-0 top-0 flex items-center ps-3.5 pointer-events-none">
+                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewbox="0 0 19 18">
+                                <path d="M18 13.446a3.02 3.02 0 0 0-.946-1.985l-1.4-1.4a3.054 3.054 0 0 0-4.218 0l-.7.7a.983.983 0 0 1-1.39 0l-2.1-2.1a.983.983 0 0 1 0-1.389l.7-.7a2.98 2.98 0 0 0 0-4.217l-1.4-1.4a2.824 2.824 0 0 0-4.218 0c-3.619 3.619-3 8.229 1.752 12.979C6.785 16.639 9.45 18 11.912 18a7.175 7.175 0 0 0 5.139-2.325A2.9 2.9 0 0 0 18 13.446Z"></path>
+                            </svg>
+                        </div>
+                        <div class="block mb-2 text-sm font-medium text-red-600 dark:text-red-500">
+                            {{ form_errors(userForm.telephone) }}
+                        </div>
+                        {{ form_widget(userForm.telephone, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', 'placeholder': '06 06 06 06 06'}}) }}
+                    </div>
+                </div>
+
+                <div class="w-full">
+                    {{ form_label(userForm.id_campus, 'Campus', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+                    <div class="block mb-2 text-sm font-medium text-red-600 dark:text-red-500">
+                        {{ form_errors(userForm.id_campus) }}
+                    </div>
+                    {{ form_widget(userForm.id_campus, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'}}) }}
+                </div>
+
+                <div class="w-full">
+                    {{ form_label(userForm.current_password, 'Mot de passe actuel', {'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+                    <div class="block mb-2 text-sm font-medium text-red-600 dark:text-red-500">
+                        {{ form_errors(userForm.current_password) }}
+                    </div>
+                    {{ form_widget(userForm.current_password, {'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'}}) }}
+                </div>
+
+                <div class="sm:col-span-2">
+                    <div class="max-w-sm mx-auto bg-white rounded-lg shadow-md overflow-hidden items-center">
+                        <div class="px-4 py-6">
+                            <div id="image-preview"
+                                 class="max-w-sm p-6 mb-4 bg-gray-100 border-dashed border-2 border-gray-400 rounded-lg items-center mx-auto text-center cursor-pointer">
+                                <input id="upload" type="file" class="hidden" accept="image/*"/>
+                                <label for="upload" class="cursor-pointer">
+                                    {% if app.user.profilePicture %}
+                                        <img src="{{ asset(app.user.profilePicture) }}"
+                                             class="max-h-48 rounded-lg mx-auto" alt="Image preview"/>
+                                    {% else %}
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                             stroke-width="1.5" stroke="currentColor"
+                                             class="w-8 h-8 text-gray-700 mx-auto mb-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                  d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"></path>
+                                        </svg>
+                                        <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-700">Upload
+                                            picture</h5>
+                                        <p class="font-normal text-sm text-gray-400 md:px-6">Choose photo size should be
+                                            less than <b class="text-gray-600">2mb</b></p>
+                                        <p class="font-normal text-sm text-gray-400 md:px-6">and should be in <b
+                                                    class="text-gray-600">JPG, PNG, or GIF</b> format.</p>
+                                    {% endif %}
+                                    <span id="filename" class="text-gray-500 bg-gray-200 z-50"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    {{ form_widget(userForm.profile_picture, {'attr': {'class': 'hidden'}}) }}
+                </div>
+
+                <div class="sm:col-span-2">
+                    <button type="submit"
+                            class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                        Enregistrer
+                    </button>
+                </div>
+
+                {{ form_end(userForm) }}
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const uploadInput = document.getElementById('upload');
+        const filenameLabel = document.getElementById('filename');
+        const imagePreview = document.getElementById('image-preview');
+        const profilePictureInput = document.querySelector('input[name="user[profile_picture]"]');
+
+        // Check if the event listener has been added before
+        let isEventListenerAdded = false;
+
+        uploadInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                filenameLabel.textContent = file.name;
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    imagePreview.innerHTML = `<img src="${e.target.result}" class="max-h-48 rounded-lg mx-auto" alt="Image preview" />`;
+                    imagePreview.classList.remove('border-dashed', 'border-2', 'border-gray-400');
+                    // Add event listener for image preview only once
+                    if (!isEventListenerAdded) {
+                        imagePreview.addEventListener('click', () => {
+                            uploadInput.click();
+                        });
+                        isEventListenerAdded = true;
+                    }
+                    // Set the file to the hidden form input
+                    profilePictureInput.files = uploadInput.files;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                filenameLabel.textContent = '';
+                imagePreview.innerHTML = `<div class="bg-gray-200 h-48 rounded-lg flex items-center justify-center text-gray-500">No image preview</div>`;
+                imagePreview.classList.add('border-dashed', 'border-2', 'border-gray-400');
+                // Remove the event listener when there's no image
+                imagePreview.removeEventListener('click', () => {
+                    uploadInput.click();
+                });
+                isEventListenerAdded = false;
+                // Clear the hidden form input
+                profilePictureInput.value = '';
+            }
+        });
+
+        uploadInput.addEventListener('click', (event) => {
+            event.stopPropagation();
+        });
+
+    </script>
+{% endblock %}

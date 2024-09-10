@@ -44,26 +44,23 @@ class UserController extends AbstractController
     }
 
     #[Route('/settings', name: 'settings')]
-    public function settings(
-        Request $request,
-        EntityManagerInterface $entityManager,
-        Security $security,
-        UserPasswordHasherInterface $userPasswordHasher
-    ): Response {
-
+    public function settings(Request $request, EntityManagerInterface $entityManager, Security $security, UserPasswordHasherInterface $userPasswordHasher): Response {
         $user = $security->getUser();
 
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $user = $form->getData();
 
             $plainPassword = $form->get('new_password')->getData();
             if ($plainPassword) {
-                $newPassword = $form->get('new_password')->getData();
-                $user->setPassword($userPasswordHasher->hashPassword($user, $newPassword));
+                $user->setPassword(
+                    $userPasswordHasher->hashPassword(
+                        $user,
+                        $plainPassword
+                    )
+                );
             }
 
             $file = $form->get('profile_picture')->getData();
@@ -78,6 +75,7 @@ class UserController extends AbstractController
             $this->addFlash('success', 'Votre profil a été mis à jour avec succès.');
             return $this->redirectToRoute('main_home');
         }
-        return $this->render('user/profile_management.html.twig', ['userForm' => $form->createView(),]);
+
+        return $this->render('user/profile_management.html.twig', ['userForm' => $form->createView()]);
     }
 }
