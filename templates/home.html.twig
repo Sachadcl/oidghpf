@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ENI Sorties - Accueil{% endblock %}
+{% block title %}ENI Sorties - Accueil
+{% endblock %}
 
 {% block body %}
 
@@ -29,7 +30,8 @@
 											<path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"></path>
 										</svg>
 									</div>
-									<label for="datepicker-range-start"></label><input id="datepicker-range-start" name="start" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Select date start">
+									<label for="datepicker-range-start"></label><input id="datepicker-range-start" name="start" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Select date start" required>
+
 								</div>
 								<span class="mx-4 text-gray-500">et</span>
 								<div class="relative">
@@ -38,7 +40,7 @@
 											<path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"></path>
 										</svg>
 									</div>
-									<label for="datepicker-range-end"></label><input id="datepicker-range-end" name="end" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Select date end">
+									<label for="datepicker-range-end"></label><input id="datepicker-range-end" name="end" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Select date end" required>
 								</div>
 							</div>
 							<div class="relative w-40">
@@ -136,34 +138,35 @@
 
 		</section>
 
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const participantCheckbox = document.getElementById("participantCheckbox");
-                const notParticipantCheckbox = document.getElementById("notParticipantCheckbox");
+		<script>
+			document.addEventListener("DOMContentLoaded", function () {
+const participantCheckbox = document.getElementById("participantCheckbox");
+const notParticipantCheckbox = document.getElementById("notParticipantCheckbox");
 
-                if (participantCheckbox && notParticipantCheckbox) {
-                    participantCheckbox.addEventListener("change", function () {
-                        if (participantCheckbox.checked) {
-                            notParticipantCheckbox.disabled = true;
-                        } else {
-                            notParticipantCheckbox.disabled = false;
-                        }
-                    });
-                }
+if (participantCheckbox && notParticipantCheckbox) {
+participantCheckbox.addEventListener("change", function () {
+if (participantCheckbox.checked) {
+notParticipantCheckbox.disabled = true;
+} else {
+notParticipantCheckbox.disabled = false;
+}
+});
+}
 
-                if (notParticipantCheckbox && participantCheckbox) {
-                    notParticipantCheckbox.addEventListener("change", function () {
-                        if (notParticipantCheckbox.checked) {
-                            participantCheckbox.disabled = true;
-                        } else {
-                            participantCheckbox.disabled = false;
-                        }
-                    });
-                }
-            });
-        </script>
+if (notParticipantCheckbox && participantCheckbox) {
+notParticipantCheckbox.addEventListener("change", function () {
+if (notParticipantCheckbox.checked) {
+participantCheckbox.disabled = true;
+} else {
+participantCheckbox.disabled = false;
+}
+});
+}
+});
+		</script>
 	{% else %}
 		<h3>Bonjour stagiaires & ex-stagiaires !</h3>
-		<p>Rapprochez vous d'un administrateur pour toute demande d'inscription ! </p>
+		<p>Rapprochez vous d'un administrateur pour toute demande d'inscription !
+		</p>
 	{% endif %}
 {% endblock %}
