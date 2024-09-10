@@ -9,3 +9,6 @@ fixtures:
 
 clear-cache:
 	php bin/console cache:clear
+
+test:
+	php bin/phpunit
