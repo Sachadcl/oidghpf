@@ -90,7 +90,7 @@
                             désister</a>
                     {% else %}
                         <span> - </span>
-                        <a href="#" class="font-medium text-primary-600 dark:text-primary-500 hover:underline">S'inscrire</a>
+                        <a href="{{ path('app_outing_register', {'id': outing.id}) }}" class="font-medium text-primary-600 dark:text-primary-500 hover:underline">S'inscrire</a>
                     {% endif %}
                 {% endif %}
 

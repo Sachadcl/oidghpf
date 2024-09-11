@@ -112,8 +112,13 @@ final class OutingController extends AbstractController
             return $this->redirectToRoute('main_home');
         }
 
-        if(strcasecmp($outing->getState(), "en creation") == 0){
-            $outing->setState("OUVERT");
+        if(strcasecmp($outing->getState(), "ouvert") == 0){
+            $outing->getIdMember()->add($security->getUser());
+
+            if($outing->getRegistrationDeadline() < new \DateTime()){
+                $outing->setSlots($outing->getSlots() - 1);
+            }
+
             $entityManager->flush();
         }
 
