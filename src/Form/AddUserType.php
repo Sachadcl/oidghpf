@@ -39,7 +39,6 @@ class AddUserType extends AbstractType
             ])
             ->add('password', PasswordType::class, [
                 'label' => 'mot de passe',
-                'mapped' => false,
                 'constraints' => [
                     new Length([
                         'min' => 6,

@@ -31,15 +31,15 @@ const fillModalInfo = async (type, id) => {
       document.querySelector("#modal-label-1").textContent = "Nom de la sortie";
       document.querySelector("#modal-value-1").textContent = data.outing_name;
       document.querySelector("#modal-label-2").textContent =
-        "Date de la sortie";
+          "Date de la sortie";
       document.querySelector("#modal-value-2").textContent =
-        data.outing_date.split("T")[0];
+          data.outing_date.split("T")[0];
       document.querySelector("#modal-label-3").textContent = "Campus";
       document.querySelector("#modal-value-3").textContent =
-        data.id_campus.campus_name;
+          data.id_campus.campus_name;
       document.querySelector("#modal-label-4").textContent = "Lieu";
       document.querySelector("#modal-value-4").textContent =
-        data.id_city.place_name;
+          data.id_city.place_name;
       document.querySelector("#reason-section").style.display = "block";
       document.querySelector("#modal-image").style.display = "none";
     } else if (type === "planner") {
@@ -63,10 +63,10 @@ const fillModalInfo = async (type, id) => {
         imageContainer.style.display = "none";
       }
       document.querySelector("#modal-title").textContent =
-        "Informations de l'organisateur";
+          "Informations de l'organisateur";
       document.querySelector("#modal-label-1").textContent = "Nom";
       document.querySelector(
-        "#modal-value-1"
+          "#modal-value-1"
       ).textContent = `${data.last_name} ${data.first_name}`;
       document.querySelector("#modal-label-2").textContent = "Email";
       document.querySelector("#modal-value-2").textContent = data.email;
@@ -74,7 +74,7 @@ const fillModalInfo = async (type, id) => {
       document.querySelector("#modal-value-3").textContent = data.telephone;
       document.querySelector("#modal-label-4").textContent = "Campus";
       document.querySelector("#modal-value-4").textContent =
-        data.id_campus.campus_name;
+          data.id_campus.campus_name;
       document.querySelector("#reason-section").style.display = "none";
     }
   } catch (error) {
@@ -86,22 +86,22 @@ const fillModalInfo = async (type, id) => {
 };
 
 document
-  .querySelectorAll('[data-modal-toggle="crud-modal"]')
-  .forEach(function (button) {
-    button.addEventListener("click", async function () {
-      switch (button.id) {
-        case "plannerLink": {
-          const plannerEmail = this.getAttribute("data-planner-email");
-          plannerEmail && (await fillModalInfo("planner", plannerEmail));
-          break;
+    .querySelectorAll('[data-modal-toggle="crud-modal"]')
+    .forEach(function (button) {
+      button.addEventListener("click", async function () {
+        switch (button.id) {
+          case "plannerLink": {
+            const plannerEmail = this.getAttribute("data-planner-email");
+            plannerEmail && (await fillModalInfo("planner", plannerEmail));
+            break;
+          }
+          case "outingCancel": {
+            const outingId = this.getAttribute("data-outing-id");
+            outingId && (await fillModalInfo("outingCancel", outingId));
+            break;
+          }
         }
-        case "outingCancel": {
-          const outingId = this.getAttribute("data-outing-id");
-          outingId && (await fillModalInfo("outingCancel", outingId));
-          break;
-        }
-      }
+      });
     });
-  });
 
 console.log("This log comes from assets/app.js - welcome to AssetMapper! 🎉");

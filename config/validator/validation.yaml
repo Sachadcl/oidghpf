@@ -34,7 +34,3 @@ App\Entity\User:
           max: 10000
     password:
       - NotBlank: ~
-    roles:
-      - NotBlank: ~
-    isActive:
-      - NotBlank: ~

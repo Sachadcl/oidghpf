@@ -1,3 +1,2 @@
-id_campus,email,username,last_name,first_name,telephone,password,roles,is_activate
-1,john.doe@example.com,jdoe,Doe,John,0123456789,password123,['ROLE_USER'],1
-1,alice.smith@example.com,asmith,Smith,Alice,0987654321,password456,['ROLE_USER'],1
+1,john.doe@example.com,jdoe,Doe,John,0123456789,password123,ROLE_USER,1
+1,alice.smith@example.com,asmith,Smith,Alice,0987654321,password456,ROLE_USER,1
