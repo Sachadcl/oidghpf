@@ -55,10 +55,23 @@ class CampusController  extends AbstractController
         return $this->redirectToRoute('app_campus');
     }
 
-    #[Route('/campus/{id}', name: 'app_campus_get_one')]
-    public function getOne(EntityManagerInterface $manager, CampusRepository $campusRepository, Request $request): Response
+    #[Route('/campus/search', name: 'app_campus_search', methods: ['GET'])]
+    public function search(CampusRepository $campusRepository,  Request $request): Response
     {
-        $campusToEdit = $campusRepository->find($request->get('id'));
+        $search = $request->query->get('q');
+        $campus = $campusRepository->search($search);
+
+
+        return $this->render('campus/index.html.twig', [
+            'campus' => $campus,
+        ]);
+    }
+
+    #[Route('/campus/{id}', name: 'app_campus_get_one', requirements: ['id' => '\d+'])]
+    public function getOne(CampusRepository $campusRepository, int $id): Response
+    {
+        $campusToEdit = $campusRepository->find($id);
+
         return $this->json($campusToEdit, 200, [], ['groups' => 'campus:read']);
     }
 
@@ -78,16 +91,5 @@ class CampusController  extends AbstractController
         $manager->flush();
 
         return $this->redirectToRoute('app_campus');
-    }
-
-    #[Route('/campus/search', name: 'app_campus_search')]
-    public function search(CampusRepository $campusRepository, EntityManagerInterface $manager, Request $request): Response
-    {
-        $search = $request->query->get('q');
-        $campus = $campusRepository->search($search);
-
-        return $this->render('campus/index.html.twig', [
-            'campus' => $campus,
-        ]);
     }
 }
