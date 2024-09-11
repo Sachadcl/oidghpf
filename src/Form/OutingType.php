@@ -32,7 +32,10 @@ class OutingType extends AbstractType
             ])
             ->add('id_city', EntityType::class, [
                 'class' => City::class,
-                'choice_label' => 'place_name',
+                'choice_label' => function (City $city) {
+                    return $city->getCityName();
+                },
+                'label' => 'Lieu de la sortie',
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'Description de la sortie',
