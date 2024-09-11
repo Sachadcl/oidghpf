@@ -31,7 +31,7 @@ class CampusController  extends AbstractController
             $manager->remove($campusToDelete);
             $manager->flush();
         } catch (Exception $error) {
-            $this->addFlash('error', 'Impossible de supprimer cette ville');
+            $this->addFlash('error', 'Impossible de supprimer ce campus');
         }
 
 

@@ -3,15 +3,19 @@
 {% block title %}ENI Sorties - Accueil{% endblock %}
 
 {% block body %}
+
+<section class="bg-gray-50 dark:bg-gray-900 flex justify-center py-4">
     <a href="{{ path('admin_add') }}"
-       class="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white"
-       aria-current="page">Ajouter un utilisateur</a>
+       class="font-medium text-primary-600 dark:text-primary-500 hover:underline"
+       aria-current="page">Ajouter un utilisateur </a>
+    <span class="font-medium text-primary-600 dark:text-primary-500">&nbsp - &nbsp</span>
 
     <a href="{{ path('admin_import-csv') }}"
-       class="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white"
-       aria-current="page">Importer via CSV</a>
+       class="font-medium text-primary-600 dark:text-primary-500 hover:underline"
+       aria-current="page"> Importer via CSV</a>
+</section>
 
-    <section class="bg-gray-50 dark:bg-gray-900 flex justify-center">
+    <section class="bg-gray-50 dark:bg-gray-900 flex justify-center pb-4">
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg w-full max-w-6xl">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
