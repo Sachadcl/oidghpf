@@ -4,6 +4,9 @@
 {% endblock %}
 
 {% block body %}
+	<div style="min-height:100vh " class="aaa">
+
+
 	<section class="bg-gray-50 dark:bg-gray-900 py-6 flex items-center">
 		<div class="max-w-screen-xl px-4 mx-auto lg:px-12 w-full">
 			<form class="max-w-md mx-auto" method="GET" action="{{path('app_campus_search')}}">
@@ -21,7 +24,7 @@
 		</div>
 	</section>
 
-	<section class="bg-gray-50 dark:bg-gray-900 flex justify-center">
+	<section class="bg-gray-50 dark:bg-gray-900 flex justify-center pb-4">
 		<div class="relative overflow-x-auto shadow-md sm:rounded-lg w-full max-w-6xl">
 			<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
 				<thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
@@ -145,4 +148,5 @@ modalTitle.textContent = 'Ajouter un campus';
 
 
 	</section>
+	</div>
 {% endblock %}
