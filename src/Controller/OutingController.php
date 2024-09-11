@@ -7,6 +7,7 @@ use App\Form\OutingType;
 use App\Repository\OutingRepository;
 use App\Service\OutingService;
 use Doctrine\ORM\EntityManagerInterface;
+use phpDocumentor\Reflection\PseudoTypes\LowercaseString;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -93,11 +94,8 @@ final class OutingController extends AbstractController
     #[Route('/publish/{id}', name: 'app_outing_publish')]
     public function publish(Outing $outing, EntityManagerInterface $entityManager, Security $security): Response
     {
-        if ($outing->getIdOrganizer()->getId() != $security->getUser()->getId()) {
-            return $this->redirectToRoute('main_home');
-        }
 
-        if(strcasecmp($outing->getState(), "en creation") == 0){
+        if(strcasecmp($outing->getState(), "EN CREATION") == 0){
             $outing->setState("OUVERT");
             $entityManager->flush();
         }

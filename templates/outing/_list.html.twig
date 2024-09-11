@@ -18,11 +18,7 @@
         </td>
 
         <td class="px-6 py-4">
-            {% if outing.state == 'EN CREATION' %}
-                <span class="text-grey-600">En création</span>
-            {% elseif outing.state == 'OUVERT' %}
-                <span class="text-green-600">Ouvert</span>
-            {% elseif outing.state == 'EN COURS' %}
+            {% if outing.state == 'EN COURS' %}
                 <span class="text-green-600">En cours</span>
             {% elseif outing.state == 'EN CREATION' %}
                 <span class="text-blue-600">En création</span>
