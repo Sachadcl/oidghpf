@@ -18,7 +18,7 @@ class Campus
 
 
     #[ORM\Column(length: 255)]
-    #[Groups(['user:read', 'outing:read'])]
+    #[Groups(['user:read', 'outing:read', 'campus:read'])]
     private ?string $campus_name = null;
 
     /**
