@@ -17,16 +17,19 @@ class City
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['outing:read'])]
+    #[Groups(['outing:read', 'city:read'])]
     private ?string $place_name = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['city:read'])]
     private ?string $city_name = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['city:read'])]
     private ?string $street_name = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['city:read'])]
     private ?string $zipcode = null;
 
     /**
