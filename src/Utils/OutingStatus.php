@@ -10,4 +10,6 @@ enum OutingStatus: string
     case CLOSED = 'CLOTUREE';
     case ONGOING = 'EN COURS';
     case HISTORY = 'HISTORISEE';
+    case OPEN = 'OUVERT';
+    case CREATION = 'EN CREATION';
 }
