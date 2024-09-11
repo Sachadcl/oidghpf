@@ -169,8 +169,24 @@ participantCheckbox.disabled = false;
 });
 		</script>
 	{% else %}
-		<h3>Bonjour stagiaires & ex-stagiaires !</h3>
-		<p>Rapprochez vous d'un administrateur pour toute demande d'inscription !
-		</p>
+		<div class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+
+		<div id="greeting-card" class="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg opacity-0 transition-opacity duration-1000">
+			<h3 class="text-2xl font-bold  mb-4">
+				Bonjour stagiaires & ex-stagiaires !
+			</h3>
+			<p class="text-gray-700">
+				Rapprochez vous d'un administrateur pour toute demande d'inscription !
+			</p>
+		</div>
+		</div>
+		<script>
+			document.addEventListener('DOMContentLoaded', function() {
+				setTimeout(function() {
+					document.getElementById('greeting-card').classList.remove('opacity-0');
+				}, 100);
+			});
+		</script>
 	{% endif %}
 {% endblock %}
