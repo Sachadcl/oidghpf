@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Campus;
 use App\Repository\CampusRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -34,6 +35,47 @@ class CampusController  extends AbstractController
             $this->addFlash('error', 'Impossible de supprimer ce campus');
         }
 
+
+        return $this->redirectToRoute('app_campus');
+    }
+
+    #[Route('/campus/add/', name: 'app_campus_add')]
+    public function add(EntityManagerInterface $manager, Request $request): Response
+    {
+        $campus = new Campus();
+
+
+        $campusName = $request->request->get('campusName');
+
+        $campus->setCampusName($campusName);
+
+        $manager->persist($campus);
+        $manager->flush();
+
+        return $this->redirectToRoute('app_campus');
+    }
+
+    #[Route('/campus/{id}', name: 'app_campus_get_one')]
+    public function getOne(EntityManagerInterface $manager, CampusRepository $campusRepository, Request $request): Response
+    {
+        $campusToEdit = $campusRepository->find($request->get('id'));
+        return $this->json($campusToEdit, 200, [], ['groups' => 'campus:read']);
+    }
+
+    #[Route('/campus/edit/{id}', name: 'app_campus_edit')]
+    public function edit(EntityManagerInterface $manager, CampusRepository $campusRepository, Request $request): Response
+    {
+        $campusToEdit = $campusRepository->find($request->get('id'));
+
+
+        $campusName = $request->request->get('campusName');
+
+
+
+        $campusToEdit->setCampusName($campusName);
+
+        $manager->persist($campusToEdit);
+        $manager->flush();
 
         return $this->redirectToRoute('app_campus');
     }
