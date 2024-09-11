@@ -60,7 +60,7 @@ class OutingRepository extends ServiceEntityRepository
         }
 
         if ($filter->getFinishedOutings()) {
-            $qb->andWhere('o.outing_date < :now')
+            $qb->andWhere('o.outing_date <= :now')
                 ->setParameter('now', new \DateTime());
         }
 

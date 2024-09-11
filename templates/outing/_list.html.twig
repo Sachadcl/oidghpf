@@ -1,111 +1,124 @@
 {% for outing in outings %}
 
-	<tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-		<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-			{{ outing.outingName }}
-		</th>
+    <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
+        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            {{ outing.outingName }}
+        </th>
 
-		<td class="px-6 py-4">
-			{{ outing.outingDate ? outing.outingDate|date('Y-m-d H:i:s') : '' }}
-		</td>
+        <td class="px-6 py-4">
+            {{ outing.outingDate ? outing.outingDate|date('Y-m-d H:i:s') : '' }}
+        </td>
 
-		<td class="px-6 py-4">
-			{{ outing.registrationDeadline ? outing.registrationDeadline|date('Y-m-d H:i:s') : '' }}
-		</td>
+        <td class="px-6 py-4">
+            {{ outing.registrationDeadline ? outing.registrationDeadline|date('Y-m-d H:i:s') : '' }}
+        </td>
 
-		<td class="px-6 py-4">
-			{{ outing.idMember|length }}/{{ outing.slots }}
-		</td>
+        <td class="px-6 py-4">
+            {{ outing.idMember|length }}/{{ outing.slots }}
+        </td>
 
-		<td class="px-6 py-4">
-			{% if outing.state == 'EN COURS' %}
-				<span class="text-green-600">En cours</span>
-			{% elseif outing.state == 'EN CREATION' %}
-				<span class="text-blue-600">En création</span>
-			{% elseif outing.state == 'ANNULEE' %}
-				<span class="text-gray-600">Annulée</span>
+        <td class="px-6 py-4">
+            {% if outing.state == 'EN COURS' %}
+                <span class="text-green-600">En cours</span>
+            {% elseif outing.state == 'EN CREATION' %}
+                <span class="text-blue-600">En création</span>
+            {% elseif outing.state == 'ANNULEE' %}
+                <span class="text-gray-600">Annulée</span>
 
-			{% elseif outing.state == 'OUVERT' %}
-				<span class="text-green-500">Ouvert</span>
-			{% elseif outing.state == 'PASSEE' %}
-				<span class="text-red-600">Passée</span>
-			{% elseif outing.state == 'CLOTUREE' %}
-				<span class="text-yellow-600">Cloturée</span>
-			{% elseif outing.state == 'HISTORISEE' %}
-				<span class="text-gray-600">Historisée</span>
-			{% else %}
-				<span class="text-gray-500">Inconnu</span>
-			{% endif %}
-		</td>
+            {% elseif outing.state == 'OUVERT' %}
+                <span class="text-green-500">Ouvert</span>
+            {% elseif outing.state == 'PASSEE' %}
+                <span class="text-red-600">Passée</span>
+            {% elseif outing.state == 'CLOTUREE' %}
+                <span class="text-yellow-600">Cloturée</span>
+            {% elseif outing.state == 'HISTORISEE' %}
+                <span class="text-gray-600">Historisée</span>
+            {% else %}
+                <span class="text-gray-500">Inconnu</span>
+            {% endif %}
+        </td>
 
-		<td class="px-6 py-4">
-			{% if app.user in outing.idMember %}
-				<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-500" fill="none" viewbox="0 0 24 24" stroke="currentColor">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-				</svg>
-			{% else %}
-				<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500" fill="none" viewbox="0 0 24 24" stroke="currentColor">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-				</svg>
-			{% endif %}
-		</td>
+        <td class="px-6 py-4">
+            {% if app.user in outing.idMember %}
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-500" fill="none" viewbox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+            {% else %}
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500" fill="none" viewbox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            {% endif %}
+        </td>
 
-		<td class="px-6 py-4">
-			{% if outing.idOrganizer %}
-				<button data-modal-target="crud-modal" data-modal-toggle="crud-modal" id="plannerLink" data-planner-email="{{ outing.idOrganizer.email }}" class="font-medium text-primary-600 dark:text-primary-500 hover:underline">{{ outing.idOrganizer.email }}</button>
-			{% else %}
-				N/A
-			{% endif %}
-		</td>
+        <td class="px-6 py-4">
+            {% if outing.idOrganizer %}
+                <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" id="plannerLink"
+                        data-planner-email="{{ outing.idOrganizer.email }}"
+                        class="font-medium text-primary-600 dark:text-primary-500 hover:underline">{{ outing.idOrganizer.email }}</button>
+            {% else %}
+                N/A
+            {% endif %}
+        </td>
 
-		<td class="px-6 py-4 text-right">
+        <td class="px-6 py-4 text-right">
 
-			<a href="{{ path('app_outing_show', {'id': outing.id}) }}" class="font-medium text-primary-600 dark:text-primary-500 hover:underline">Afficher</a>
+            {% if outing.state|lower != 'en creation' or (app.user and is_granted('ROLE_ADMIN')) %}
+                <a href="{{ path('app_outing_show', {'id': outing.id}) }}"
+                   class="font-medium text-primary-600 dark:text-primary-500 hover:underline">Afficher</a>
+            {% endif %}
 
-			{% if outing.idOrganizer is not null and outing.idOrganizer.id == app.user.id %}
+            {% if outing.idOrganizer is not null and outing.idOrganizer.id == app.user.id %}
 
-				{% if outing.state|lower == 'ferme' or outing.state|lower == 'ouvert' %}
-					<span>
-						-
-					</span>
-					<button data-modal-target="crud-modal" data-outing-id="{{outing.id}}" id="outingCancel" data-modal-toggle="crud-modal" class="font-medium text-primary-600 dark:text-primary-500 hover:underline" type="button">
-						Annuler
-					</button>
+                {% if outing.state|lower == 'ferme' or outing.state|lower == 'ouvert' %}
+                    <span> - </span>
+                    <button data-modal-target="crud-modal" data-outing-id="{{ outing.id }}" id="outingCancel"
+                            data-modal-toggle="crud-modal"
+                            class="font-medium text-primary-600 dark:text-primary-500 hover:underline" type="button">
+                        Annuler
+                    </button>
 
-				{% elseif outing.state|lower == 'en creation' %}
-					<span>
-						-
-					</span>
-					<a href="{{ path('app_outing_edit', {'id': outing.id}) }}" class="font-medium text-primary-600 dark:text-primary-500 hover:underline">Modifier</a>
-					<span>
-						-
-					</span>
-					<a href="{{ path('app_outing_publish', {'id': outing.id}) }}" class="font-medium text-primary-600 dark:text-primary-500 hover:underline">Publier</a>
-				{% endif %}
+                {% elseif outing.state|lower == 'en creation' %}
+                    <a href="{{ path('app_outing_edit', {'id': outing.id}) }}"
+                       class="font-medium text-primary-600 dark:text-primary-500 hover:underline">Modifier</a>
+                    <span> - </span>
+                    <a href="{{ path('app_outing_publish', {'id': outing.id}) }}"
+                       class="font-medium text-primary-600 dark:text-primary-500 hover:underline">Publier</a>
+                {% endif %}
 
-			{% else %}
+            {% else %}
 
-				{% if outing.state|lower == 'ouvert' %}
-					{% if app.user in outing.idMember %}
-						<span>
-							-
-						</span>
-						<a href="{{ path('app_outing_withdrew', {'id': outing.id}) }}" class="font-medium text-primary-600 dark:text-primary-500 hover:underline">Se
-																																																	                            désister</a>
-					{% else %}
-						<span>
-							-
-						</span>
-						<a href="{{ path('app_outing_register', {'id': outing.id}) }}" class="font-medium text-primary-600 dark:text-primary-500 hover:underline">S'inscrire</a>
-					{% endif %}
-				{% endif %}
+                {% if outing.state|lower == 'ouvert' %}
+                    {% if app.user in outing.idMember %}
+                        <span> - </span>
+                        <a href="{{ path('app_outing_withdrew', {'id': outing.id}) }}"
+                           class="font-medium text-primary-600 dark:text-primary-500 hover:underline">Se
+                            désister</a>
+                    {% else %}
+                        <span> - </span>
+                        <a href="{{ path('app_outing_register', {'id': outing.id}) }}"
+                           class="font-medium text-primary-600 dark:text-primary-500 hover:underline">S'inscrire</a>
+                    {% endif %}
 
-			{% endif %}
+                {% endif %}
 
-		</td>
-	</tr>
+                {% if app.user and is_granted('ROLE_ADMIN') and (outing.state|lower == 'ouvert' or outing.state|lower == 'en creation') %}
+                    <span> - </span>
+                    <button data-modal-target="crud-modal" data-outing-id="{{ outing.id }}" id="outingCancel"
+                            data-modal-toggle="crud-modal"
+                            class="font-medium text-primary-600 dark:text-primary-500 hover:underline" type="button">
+                        Annuler
+                    </button>
+                {% endif %}
+
+            {% endif %}
+
+        </td>
+    </tr>
 {% else %}
-	<tr>
-		<td colspan="7">no records found</td>
-	</tr>
+    <tr>
+        <td colspan="7">no records found</td>
+    </tr>
 {% endfor %}
