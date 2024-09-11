@@ -6,6 +6,7 @@ use App\Entity\Outing;
 use App\Form\OutingType;
 use App\Repository\OutingRepository;
 use App\Service\OutingService;
+use App\Utils\OutingStatus;
 use Doctrine\ORM\EntityManagerInterface;
 use phpDocumentor\Reflection\PseudoTypes\LowercaseString;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -66,8 +67,17 @@ final class OutingController extends AbstractController
         return $this->json($outing, 200, [], ['groups' => 'outing:read']);
     }
 
+    #[Route('/cancel/{id}', name: 'app_outing_cancel_ajax', methods: ['GET'])]
+    public function cancelOuting(Outing $outing, EntityManagerInterface $entityManager): Response
+    {
+        $outing->setState(OutingStatus::CANCELLED->value);
+        $entityManager->persist($outing);
+        $entityManager->flush();
+        return $this->redirectToRoute('main_home');
+    }
+
     #[Route('/{id}/edit', name: 'app_outing_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Outing $outing, OutingService $outingService , EntityManagerInterface $entityManager, Security $security): Response
+    public function edit(Request $request, Outing $outing, OutingService $outingService, EntityManagerInterface $entityManager, Security $security): Response
     {
         $form = $this->createForm(OutingType::class, $outing);
         $form->handleRequest($request);
@@ -95,8 +105,8 @@ final class OutingController extends AbstractController
     public function publish(Outing $outing, EntityManagerInterface $entityManager, Security $security): Response
     {
 
-        if(strcasecmp($outing->getState(), "EN CREATION") == 0){
-            $outing->setState("OUVERT");
+        if (strcasecmp($outing->getState(), OutingStatus::CREATION->value) == 0) {
+            $outing->setState(OutingStatus::OPEN->value);
             $entityManager->flush();
         }
 
@@ -110,10 +120,10 @@ final class OutingController extends AbstractController
             return $this->redirectToRoute('main_home');
         }
 
-        if(strcasecmp($outing->getState(), "ouvert") == 0){
+        if (strcasecmp($outing->getState(), OutingStatus::OPEN->value) == 0) {
             $outing->getIdMember()->add($security->getUser());
 
-            if($outing->getRegistrationDeadline() < new \DateTime()){
+            if ($outing->getRegistrationDeadline() < new \DateTime()) {
                 $outing->setSlots($outing->getSlots() - 1);
             }
 
@@ -139,16 +149,16 @@ final class OutingController extends AbstractController
     }
 
     #[Route('/withdrew/{id}', name: 'app_outing_withdrew')]
-    public function withdrew (Outing $outing, Security $security, EntityManagerInterface $entityManager): Response
+    public function withdrew(Outing $outing, Security $security, EntityManagerInterface $entityManager): Response
     {
-        if(!$outing->getIdMember()->contains($security->getUser())) {
+        if (!$outing->getIdMember()->contains($security->getUser())) {
             return $this->redirectToRoute('main_home');
         }
 
-        if(strcasecmp($outing->getState(), "ouvert") == 0){
+        if (strcasecmp($outing->getState(), OutingStatus::OPEN->value) == 0) {
             $outing->getIdMember()->removeElement($security->getUser());
 
-            if($outing->getRegistrationDeadline() < new \DateTime()){
+            if ($outing->getRegistrationDeadline() < new \DateTime()) {
                 $outing->setSlots($outing->getSlots() + 1);
             }
 

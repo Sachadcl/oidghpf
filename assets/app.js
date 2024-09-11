@@ -15,16 +15,19 @@ const fillModalInfo = async (type, id) => {
   showLoader();
   let data;
   try {
-    if (type === "outing") {
+    if (type === "outingCancel") {
       const response = await fetch(`/outing/ajax/${id}`);
       data = await response.json();
       const submitButton = document.getElementById("submitButton");
       const cancelButton = document.getElementById("cancelButton");
 
+      submitButton.addEventListener("click", async () => {
+        await fetch(`/outing/cancel/${id}`);
+      });
+
       submitButton.style.display = "block";
       cancelButton.style.display = "block";
-      document.querySelector("#modal-title").textContent =
-        "Informations de la sortie";
+      document.querySelector("#modal-title").textContent = "Annuler la sortie";
       document.querySelector("#modal-label-1").textContent = "Nom de la sortie";
       document.querySelector("#modal-value-1").textContent = data.outing_name;
       document.querySelector("#modal-label-2").textContent =
@@ -94,7 +97,7 @@ document
         }
         case "outingCancel": {
           const outingId = this.getAttribute("data-outing-id");
-          outingId && (await fillModalInfo("outing", outingId));
+          outingId && (await fillModalInfo("outingCancel", outingId));
           break;
         }
       }

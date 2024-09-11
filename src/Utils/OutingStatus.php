@@ -12,4 +12,5 @@ enum OutingStatus: string
     case HISTORY = 'HISTORISEE';
     case OPEN = 'OUVERT';
     case CREATION = 'EN CREATION';
+    case CANCELLED = 'ANNULEE';
 }
