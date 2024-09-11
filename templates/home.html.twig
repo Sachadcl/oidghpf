@@ -22,7 +22,7 @@
 									<input type="text" name="name" id="simple-search" class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Le nom de la sortie contient">
 								</div>
 							</div>
-							<span class="mx-4 text-gray-500">Entre</span>
+							<span class="mx-4 text-gray-500 dark:text-gray-300">Entre</span>
 							<div id="date-range-picker" date-rangepicker class="flex items-center">
 								<div class="relative">
 									<div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -33,7 +33,7 @@
 									<label for="datepicker-range-start"></label><input id="datepicker-range-start" name="start" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Date de début">
 
 								</div>
-								<span class="mx-4 text-gray-500">et</span>
+								<span class="mx-4 text-gray-500 dark:text-gray-300">et</span>
 								<div class="relative">
 									<div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
 										<svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewbox="0 0 20 20">
@@ -44,10 +44,10 @@
 								</div>
 							</div>
 							<div class="relative w-40">
-								<select id="countries" name="campusId" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+								<select id="countries" name="campusId" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-300 dark:focus:ring-primary-500 dark:focus:border-primary-500">
 
 									{% for campus in campuses %}
-										<option value={{ campus.id }}>{{ campus.campusName }}</option>
+										<option class="dark:text-gray-300" value={{ campus.id }}>{{ campus.campusName }}</option>
 									{% endfor %}
 
 								</select>
