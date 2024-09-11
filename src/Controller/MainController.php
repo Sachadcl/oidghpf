@@ -43,15 +43,21 @@ class MainController extends AbstractController
     public function search(Request $request, UserInterface $user, OutingRepository $outingRepository, CampusRepository $campusRepository, UserRepository $userRepository): Response
     {
 
-        $startDate = new \DateTime($request->query->get('start'));
-        $endDate = new \DateTime($request->query->get('end'));
+
+        $startDate = $request->query->get('start');
+        $endDate = $request->query->get('end');
+
+        if ($startDate != "" && $endDate != "") {
+            $startDate = new \DateTime($request->query->get('start'));
+            $endDate = new \DateTime($request->query->get('end'));
+        }
 
         $filter = new Filter();
 
         $filter->setName($request->query->get('name'));
         $filter->setBeginDate($startDate);
         $filter->setEndDate($endDate);
-        $filter->setCampusId($request->query->get('selectedCampus'));
+        $filter->setCampusId($request->query->get('campusId'));
 
 
         $user = $userRepository->getByEmail($user->getUserIdentifier());
@@ -75,7 +81,8 @@ class MainController extends AbstractController
         }
 
         $filter->setFinishedOutings($request->query->get('finishedOutings') !== null);
-
+        // var_dump($request->query->all());
+        // dd($filter);
         $outings = $outingRepository->search($filter);
         return $this->render('home.html.twig', [
             'outings' => $outings,
