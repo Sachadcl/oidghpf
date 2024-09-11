@@ -49,6 +49,7 @@ class AppFixtures extends Fixture
         $this->campus = new Campus();
         $this->user = new User();
         $this->city = new City();
+        $this->aaa = new User();
 
 
 
@@ -66,6 +67,18 @@ class AppFixtures extends Fixture
         $this->user->setIsActive(true);
 
 
+        $this->aaa->setFirstName($this->faker->firstName());
+        $this->aaa->setLastName($this->faker->lastName());
+        $this->aaa->setEmail("bbb@12aaa.com");
+        $this->aaa->setRoles([Roles::ADMIN->value]);
+        $this->aaa->setUsername($this->faker->userName());
+        $this->aaa->setTelephone($this->faker->phoneNumber());
+        $this->aaa->setIdCampus($this->campus);
+        $this->aaa->setProfilePicture($this->faker->imageUrl());
+        $this->aaa->setPassword($this->passwordHasher->hashPassword($this->user, "aaa"));
+        $this->aaa->setIsActive(true);
+
+
         $this->city->setcityName($this->faker->city());
         $this->city->setPlaceName($this->faker->company());
         $this->city->setStreetName($this->faker->streetName());
@@ -73,6 +86,7 @@ class AppFixtures extends Fixture
 
         $manager->persist($this->campus);
         $manager->persist($this->user);
+        $manager->persist($this->aaa);
         $manager->persist($this->city);
         $manager->flush();
     }
