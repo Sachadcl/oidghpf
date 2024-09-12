@@ -22,12 +22,12 @@ class AppFixtures extends Fixture
 
     private OutingService $outingService;
     private Campus $campus;
+    private Campus $bbb;
     private User $user;
+    private User $aaa;
     private City $city;
 
     public static $CAMPUS_LIST = [
-        'ENI Rennes',
-        'ENI Nantes',
         'ENI Brest',
         'ENI Vannes',
         'ENI Quimper',
@@ -47,6 +47,7 @@ class AppFixtures extends Fixture
     {
 
         $this->campus = new Campus();
+        $this->bbb = new Campus();
         $this->user = new User();
         $this->city = new City();
         $this->aaa = new User();
@@ -54,10 +55,12 @@ class AppFixtures extends Fixture
 
 
         $this->campus->setCampusName('ENI Rennes');
+        $this->bbb->setCampusName('ENI Nantes');
+
 
         $this->user->setFirstName($this->faker->firstName());
         $this->user->setLastName($this->faker->lastName());
-        $this->user->setEmail("aaa@12aaa.com");
+        $this->user->setEmail("aaa@aaa.com");
         $this->user->setRoles([Roles::USER->value]);
         $this->user->setUsername($this->faker->userName());
         $this->user->setTelephone($this->faker->phoneNumber());
@@ -69,15 +72,14 @@ class AppFixtures extends Fixture
 
         $this->aaa->setFirstName($this->faker->firstName());
         $this->aaa->setLastName($this->faker->lastName());
-        $this->aaa->setEmail("bbb@12aaa.com");
+        $this->aaa->setEmail("bbb@bbb.com");
         $this->aaa->setRoles([Roles::ADMIN->value]);
         $this->aaa->setUsername($this->faker->userName());
         $this->aaa->setTelephone($this->faker->phoneNumber());
-        $this->aaa->setIdCampus($this->campus);
+        $this->aaa->setIdCampus($this->bbb);
         $this->aaa->setProfilePicture($this->faker->imageUrl());
         $this->aaa->setPassword($this->passwordHasher->hashPassword($this->user, "aaa"));
         $this->aaa->setIsActive(true);
-
 
         $this->city->setcityName($this->faker->city());
         $this->city->setPlaceName($this->faker->company());
@@ -85,6 +87,7 @@ class AppFixtures extends Fixture
         $this->city->setZipcode($this->faker->postcode());
 
         $manager->persist($this->campus);
+        $manager->persist($this->bbb);
         $manager->persist($this->user);
         $manager->persist($this->aaa);
         $manager->persist($this->city);
@@ -135,8 +138,8 @@ class AppFixtures extends Fixture
         $outing = new Outing();
         $signedUser = $this->user;
         $outing->setIdCampus($this->campus);
-        $outing->setOutingDate($this->faker->dateTimeBetween('2024-01-01', '2024-12-31'));
-        $outing->setRegistrationDeadline($this->faker->dateTimeBetween('2023-01-01', '2024-12-31'));
+        $outing->setOutingDate($this->faker->dateTimeBetween('2024-09-12', '2024-12-31'));
+        $outing->setRegistrationDeadline($this->faker->dateTimeBetween('2024-09-11', '2024-12-31'));
         $outing->setState($this->outingService->calculateOutingState($outing));
         $outing->setIdCity($this->city);
         $outing->setOutingName($this->faker->company());
@@ -146,6 +149,38 @@ class AppFixtures extends Fixture
         $outing->setSlots($this->faker->numberBetween(1, 50));
         $outing->addIdMember($signedUser);
         $manager->persist($outing);
+        $manager->flush();
+
+        $outing2 = new Outing();
+        $signedUser2 = $this->aaa;
+        $outing2->setIdCampus($this->campus);
+        $outing2->setOutingDate($this->faker->dateTimeBetween('2024-06-20', '2024-06-21'));
+        $outing2->setRegistrationDeadline($this->faker->dateTimeBetween('2024-07-19', '2024-07-20'));
+        $outing2->setState($this->outingService->calculateOutingState($outing2));
+        $outing2->setIdCity($this->city);
+        $outing2->setOutingName($this->faker->company());
+
+        $outing2->setDescription($this->faker->text());
+        $outing2->setIdOrganizer($signedUser2);
+        $outing2->setSlots($this->faker->numberBetween(1, 50));
+        $outing2->addIdMember($signedUser2);
+        $manager->persist($outing2);
+        $manager->flush();
+
+        $outing3 = new Outing();
+        $signedUser3 = $this->aaa;
+        $outing3->setIdCampus($this->bbb);
+        $outing3->setOutingDate($this->faker->dateTimeBetween('2024-12-30', '2024-12-31'));
+        $outing3->setRegistrationDeadline($this->faker->dateTimeBetween('2023-12-30', '2023-12-31'));
+        $outing3->setState($this->outingService->calculateOutingState($outing3));
+        $outing3->setIdCity($this->city);
+        $outing3->setOutingName($this->faker->company());
+
+        $outing3->setDescription($this->faker->text());
+        $outing3->setIdOrganizer($signedUser3);
+        $outing3->setSlots($this->faker->numberBetween(1, 50));
+        $outing3->addIdMember($signedUser3);
+        $manager->persist($outing3);
         $manager->flush();
     }
 
