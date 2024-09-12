@@ -8,6 +8,7 @@ use App\Form\ImportCsvType;
 use App\Repository\CampusRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -120,8 +121,15 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('admin_user-management');
         }
 
-        $entityManager->remove($user);
-        $entityManager->flush();
+        try {
+            $entityManager->remove($user);
+            $entityManager->flush();
+        } catch (Exception $exception) {
+            $this->addFlash('error', 'Impossible de supprimer cet utilisateur');
+        } finally {
+            return $this->redirectToRoute('admin_user-management');
+        }
+
 
         return $this->redirectToRoute('admin_user-management');
     }
