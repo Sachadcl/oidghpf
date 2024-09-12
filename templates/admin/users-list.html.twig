@@ -36,11 +36,7 @@
         </td>
 
         <td class="px-6 py-4">
-            <a href="{{ path('user_profile', {'id': user.id}) }}"
-               class="font-medium text-primary-600 dark:text-primary-500 hover:underline">Profil</a>
-
             {% if "ROLE_ADMIN" not in user.roles %}
-                <span> - </span>
                 <a href="{{ path('admin_delete', {'id': user.id}) }}" class="font-medium text-primary-600 dark:text-primary-500 hover:underline">Supprimer</a>
 
                 {% if user.isActive %}
