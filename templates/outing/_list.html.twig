@@ -81,7 +81,6 @@
                     </button>
 
                 {% elseif outing.state|lower == 'en creation' %}
-                    <span> - </span>
                     <a href="{{ path('app_outing_edit', {'id': outing.id}) }}"
                        class="font-medium text-primary-600 dark:text-primary-500 hover:underline">Modifier</a>
                     <span> - </span>
